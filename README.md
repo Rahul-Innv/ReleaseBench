@@ -8,128 +8,19 @@
 [![PyPI version](https://img.shields.io/pypi/v/releasebench)](https://pypi.org/project/releasebench/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-ReleaseBench is a ten-skill atomic family for taking a private repository to the last
-evidence-backed checkpoint before outward publication. It separates local preparation from
-owner-gated host, release, registry, marketplace, installation, and public-verification actions.
+ReleaseBench is a Claude Code plugin for developers who are about to take a private repository
+public. Its ten focused skills handle the risky steps of that move — auditing repository health,
+scanning for committed secrets, generating the standard public-repo files, polishing the README, and
+preparing releases — and each one stops at a result you can review, never a push or publish it
+performs on its own. Without checks like these, mistakes become public the moment the repository
+does: a committed API key, a missing license, or an untested install command ships to the world in
+one push.
 
-This repository is public and its router ships on PyPI, but the skill family itself remains an
-inactive candidate: nothing here grants lifecycle eligibility.
+## The 30-second demo
 
-## Atomic family
-
-| Canonical skill | One measurable outcome |
-|---|---|
-| `releasebench-route` | Select exactly one next leaf or return no safe route. |
-| `releasebench-prepare-repository` | Produce one local repository-preparation receipt. |
-| `releasebench-audit-repository` | Produce one read-only repository-health gap report. |
-| `releasebench-scan-secrets` | Produce one redacted secret-hygiene risk report. |
-| `releasebench-scaffold-governance` | Produce one reviewable missing-governance diff. |
-| `releasebench-showcase-readme` | Produce one truthful showcase README diff. |
-| `releasebench-publish-repository` | Produce one closed-gate host and first-push handoff receipt. |
-| `releasebench-release-version` | Produce one local release-preparation receipt. |
-| `releasebench-prepare-package` | Produce one offline package dry-run receipt. |
-| `releasebench-document-config` | Produce one aligned schema, validator, and documentation diff. |
-
-The router dispatches only; it contains no leaf procedure. A full-flow request advances to the first
-incomplete applicable local stage. Ambiguous intent, missing dependency evidence, stale lifecycle
-state, or conflicting state returns a no-safe-route receipt.
-
-The family also retains three internal, non-skill primitives: the shared lesson reader, plugin
-manifest, and portable agent guide.
-
-## Evidence, not traction
-
-ReleaseBench has no public usage or download claim yet. Its proof is deliberately local and
-reproducible: the focused deterministic suite runs 19 product contracts with zero failures, zero
-errors, and zero skips; the plugin manifest validates; the bundled read-only auditor reports zero
-missing must-haves; and the Python package builds offline and passes its metadata check. These
-checks establish candidate integrity, not host, provider, registry, installation, marketplace, or
-public behavior.
-
-## Local validation
-
-The focused deterministic suite verifies:
-
-- exact membership of ten canonical skills and three internal primitives;
-- the preserved 49-case eval corpus with per-leaf case IDs;
-- every positive trigger, every near miss, and all 36 pairwise direct-intent collisions;
-- deterministic typed routing, malformed-request failures, full-flow progression, and byte-equal CLI
-  receipts;
-- retained support files, secret/private-path boundaries, and all eight closed outward actions.
-
-Run the suite from any checkout:
-
-```powershell
-python -B tests/releasebench/run_tests.py
-```
-
-The local GitLab CI definition runs this suite plus one syntax check per bundled Node script. Its
-job scripts contain no explicit provider, registry, marketplace, publication, or product-remote
-command. The runner may still resolve the external floating container images declared by the jobs,
-so hosted pipeline results are not claimed as offline-deterministic evidence. A
-full local qualification additionally runs:
-
-```powershell
-claude.cmd plugin validate .
-git diff --check HEAD
-git fsck --strict --no-reflogs
-```
-
-Then parse all JSON, run `node --check` on every `.mjs`, and replay the exact staged tree from a
-fresh worktree. The producing lane does not self-certify; a fresh independent critic must verify the
-frozen bytes before any commit or lifecycle decision. See
-[the validation contract](docs/public/VALIDATION.md).
-
-## Flow
-
-```mermaid
-flowchart LR
-  A["Private repository"] --> B["Route one atomic outcome"]
-  B --> C["Local preparation and evidence"]
-  C --> D{"Focused validation passes?"}
-  D -- "No" --> E["Stop with failure evidence"]
-  D -- "Yes" --> F["Freeze candidate for independent critic"]
-  F --> G{"New exact outward approval?"}
-  G -- "No" --> H["Private pre-public stop"]
-  G -- "Later" --> I["Separately gated owner action"]
-```
-
-## Invocation
-
-Load the local plugin from a clean checkout:
-
-```powershell
-claude.cmd --plugin-dir .
-```
-
-Invoke the router:
-
-```text
-/releasebench:releasebench-route
-```
-
-Or invoke one direct leaf, for example:
-
-```text
-/releasebench:releasebench-scan-secrets
-```
-
-Codex metadata is bundled under each skill's `agents/openai.yaml`, but implicit invocation remains
-disabled for this inactive candidate.
-
-## Install
-
-The deterministic router is published on PyPI as
-[`releasebench`](https://pypi.org/project/releasebench/), with no runtime dependencies beyond the
-standard library:
-
-```powershell
-pip install releasebench
-```
-
-The `releasebench` console entry point (equivalently `python -m releasebench` or
-`python -B src/releasebench/router.py`) reads one typed JSON routing request from stdin or a file
-argument and writes one canonical routing receipt:
+At the center of ReleaseBench is a small deterministic router. You hand it a typed JSON request
+saying what you want; it answers with exactly one skill to run — or refuses when the request is
+ambiguous. After [installing](#install) (`pip install releasebench`):
 
 ```powershell
 '{"contract_version":"releasebench.route-request/v1","request_id":"demo-1","intents":["scan-secrets"]}' |
@@ -137,36 +28,158 @@ argument and writes one canonical routing receipt:
 releasebench request.json
 ```
 
-Installing the package changes no skill lifecycle state and performs no outward action. To install
-from a checkout instead, run `pip install .`.
+```text
+{"authority_state":"candidate-inactive","closed_actions":["remote-project-creation-and-first-push","host-visibility-metadata-topics-avatar-writes","host-public-api-and-network-verification","local-tag-creation-and-outward-tag-push","host-release-creation-or-backfill","package-registry-name-availability-reads","package-publication","remote-image-reachability-checks"],"considered_leaves":["releasebench-scan-secrets"],"decision":"selected","leaf_id":"releasebench-scan-secrets","outward_actions_authorized":false,"outward_actions_executed":false,"reason_code":"ONE_DIRECT_INTENT","receipt_sha256":"bbe6cc0ae3ae305bdb5c134521fae0b8d745f6777784b54aabcc3d8bdfbd93ef","receipt_version":"releasebench.route-receipt/v1","request_id":"demo-1","router_id":"releasebench-route","visibility_state":"private-prepublic"}
+```
 
-## Source policy
+That one-line answer is a **receipt**: a JSON record of what was decided and why. `leaf_id` is the
+one skill it chose (the router calls skills "leaves"), `reason_code` says why, `closed_actions`
+lists everything it refused to even consider doing — every push, tag, publish, and settings change —
+and `receipt_sha256` is a checksum of the record itself. The same request always produces
+byte-identical output, which is what the test suite verifies.
 
-New paths, receipts, invocations, and documentation use canonical IDs only. Installed source skills,
-imported packages, remotes, marketplaces, providers, and archives are not modified by this
-repository.
+## What's inside
 
-## Closed actions
+Ten skills. Each does one job and hands you something you can read before anything else happens.
 
-This candidate does not create a remote project, push, fetch, pull, tag, create a host Release,
-change visibility or host metadata, call a host/public API, check remote image reachability, query a
-registry, authenticate, publish a package, install or promote a skill, contact a provider, or
-perform a marketplace action. `releasebench-publish-repository` solely owns the first-host/first-push
-handoff but does not execute it.
+| Skill | What you get |
+|---|---|
+| `releasebench-route` | Picks the one right skill for your request — or tells you clearly that no safe choice exists. |
+| `releasebench-prepare-repository` | Runs the full local preparation pass (audit, secret scan, missing standard files, config docs) and summarizes the result. |
+| `releasebench-audit-repository` | A read-only report of which files a public repo needs are present or missing, by severity. |
+| `releasebench-scan-secrets` | A read-only scan for committed keys, tracked `.env` files, and `.gitignore` gaps — findings are masked, never printed in full. |
+| `releasebench-scaffold-governance` | Ready-to-review drafts of only the files you are missing: LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CHANGELOG, issue and PR templates. |
+| `releasebench-showcase-readme` | A truthful README makeover — badges, demo, architecture diagram — with no invented metrics. |
+| `releasebench-publish-repository` | A step-by-step handoff for creating the remote project and going public: commands prepared for you to run, never run for you. |
+| `releasebench-release-version` | A prepared version release — changelog cut, version bump, and the exact tag and Release commands — ready for your approval. |
+| `releasebench-prepare-package` | An offline dry run showing exactly what would ship to npm or PyPI before you publish. |
+| `releasebench-document-config` | A JSON Schema, a validator, and "make it yours" docs for your config file, generated together so they cannot drift apart. |
 
-## Candidate status
+## How it works
 
-The local release candidate is `0.1.0`, matching the plugin manifest, the Python package metadata,
-and the changelog. Read [readiness status](docs/public/READINESS.md),
-[dependency contract](docs/public/DEPENDENCIES.md), and
-[owner handoff](docs/public/OWNER-HANDOFF.md) for the remaining gates. These files are local
-preparation artifacts, not proof of any host or public state.
+1. You ask for something — "get this repo ready to go public", "check for leaked keys".
+2. The router picks exactly one skill, or declines with a reason rather than guessing.
+3. The chosen skill runs locally and stops at a reviewable result: a report, a diff, or prepared
+   commands.
+4. Anything that would leave your machine — pushing, tagging, creating a release, changing project
+   settings, publishing a package — is written down for you but left for you to run.
 
-Known limitation: the carried audit helper still checks GitHub-specific issue, pull-request, and CI
-paths. It therefore reports three recommended gaps even though this GitLab-oriented repository has
-GitLab issue templates, merge-request templates, and a local `.gitlab-ci.yml`. Those findings require
-host-aware triage; the helper still correctly reports zero missing must-haves. Host-aware governance
-detection remains future work.
+```mermaid
+flowchart LR
+  A["Your request"] --> B["Router picks exactly one skill"]
+  B -- "ambiguous" --> C["Declines with a reason"]
+  B --> D["Skill runs locally"]
+  D --> E["Reviewable report or diff"]
+  E --> F["You run any push or publish yourself"]
+```
+
+## Run it inside Claude Code
+
+Load the plugin from a checkout:
+
+```powershell
+claude.cmd --plugin-dir .
+```
+
+Then let the router decide:
+
+```text
+/releasebench:releasebench-route
+```
+
+Or call one skill directly, for example:
+
+```text
+/releasebench:releasebench-scan-secrets
+```
+
+Each skill also bundles metadata for OpenAI Codex under `agents/openai.yaml`; automatic invocation
+is switched off there, so a skill runs only when you name it.
+
+## No Claude Code? Still useful
+
+A receipt names a skill, and skills are procedures that Claude Code executes — so with the plugin
+loaded, the named skill is simply the next thing you run. Without Claude Code, ReleaseBench is two
+things: the `releasebench` router CLI shown above, and the bundled scripts under `skills/*/scripts`,
+which are plain dependency-free Node programs you can run directly against any repository path.
+Here is the repository-health audit pointed at a small demo app that has code and a README but
+nothing else:
+
+```powershell
+node skills/releasebench-audit-repository/scripts/audit-repo.mjs R:\demo-app
+```
+
+```text
+[audit-repo] R:\demo-app
+present: README, .gitignore
+
+  [MUST] LICENSE — add a license (e.g. MIT) — with none, the repo is "all rights reserved"
+  [RECOMMENDED] CONTRIBUTING — add CONTRIBUTING — how to contribute + the project guardrails
+  [RECOMMENDED] SECURITY — add SECURITY — how to report vulnerabilities privately
+  [RECOMMENDED] CODE_OF_CONDUCT — add CODE_OF_CONDUCT — community standards
+  [RECOMMENDED] CHANGELOG — add CHANGELOG — notable changes
+  [RECOMMENDED] issue templates — add .github/ISSUE_TEMPLATE/
+  [RECOMMENDED] PR template — add .github/PULL_REQUEST_TEMPLATE.md
+  [RECOMMENDED] CI — add a .github/workflows CI (e.g. run tests on push/PR)
+  [RECOMMENDED] package.json "license" — add a "license" field
+  [INFO] secrets scan — run releasebench-scan-secrets for committed-secret risks
+  [INFO] config schema — if there is a JSON config, run releasebench-document-config for a schema + validator + Make-it-yours
+
+summary: 1 must-have missing, 8 recommended missing, 2 present.
+Run releasebench-scaffold-governance to generate the missing files.
+```
+
+It exits non-zero when a must-have is missing, so it can guard a CI job. The secret scanner
+(`skills/releasebench-scan-secrets/scripts/scan-secrets.mjs`) works the same way and masks every
+value it finds, printing at most the first three and last two characters.
+
+## Install
+
+The router is on PyPI, with no dependencies beyond the Python 3.10+ standard library:
+
+```powershell
+pip install releasebench
+```
+
+Usage: `releasebench [-h | --help] [REQUEST_FILE]` reads one typed JSON routing request from
+`REQUEST_FILE` (or from stdin when the argument is omitted or `-`) and writes one single-line JSON
+receipt to stdout. Exit code 0 means a receipt was written — including "no safe route" answers —
+and exit code 2 means the request itself was malformed, with the reason on stderr. The file argument
+is the most reliable path on Windows. One caution for Windows PowerShell 5.1: write the request file
+with plain `Set-Content` as shown above — both `>` redirection and `-Encoding UTF8` prepend a
+byte-order mark, which the router rejects with an `INVALID_JSON ... utf-8-sig` error.
+
+Equivalently, run `python -m releasebench`. To install from a checkout instead: `pip install .`.
+
+## Honest status
+
+ReleaseBench is new: no download counts, no stars, no users to quote. What it has is proof you can
+re-run yourself in about a minute:
+
+```powershell
+python -B tests/releasebench/run_tests.py
+```
+
+```text
+releasebench-atomic-tests tests=19 failures=0 errors=0 skipped=0
+candidate_root=.
+PASS
+```
+
+Those 19 checks pin down the exact set of skills, every routing decision (including every pairwise
+ambiguous request failing safely), byte-identical CLI output, and a privacy check that forbids
+machine-specific paths and secret-shaped strings throughout the product files and tests. GitLab CI runs the
+same suite on every push (badge above), and the PyPI package was re-installed into a fresh virtual
+environment to verify the install command while writing this README.
+
+One candid limitation: the audit script checks GitHub-style paths (`.github/...`), so on this
+GitLab-hosted repository it flags three recommended gaps — issue templates, merge-request template,
+CI — that actually exist here in their GitLab form (`.gitlab/`, `.gitlab-ci.yml`). It still
+correctly reports zero missing must-haves. Host-aware detection is future work.
+
+Status in one line: version `0.1.0`, public on GitLab and PyPI, all 19 checks passing, no release
+tag cut yet; the full ledger of what ReleaseBench deliberately does not do on its own is in
+[STATUS.md](STATUS.md).
 
 ## Governance
 

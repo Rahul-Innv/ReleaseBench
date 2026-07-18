@@ -213,7 +213,27 @@ def dispatch(request: dict[str, Any]) -> dict[str, Any]:
     )
 
 
+USAGE = """\
+usage: releasebench [-h | --help] [REQUEST_FILE]
+
+Read one typed JSON routing request (contract "releasebench.route-request/v1")
+from REQUEST_FILE, or from stdin when REQUEST_FILE is omitted or "-", and write
+one canonical single-line JSON routing receipt to stdout.
+
+exit codes:
+  0  receipt written (decision "selected" or "no-safe-route")
+  2  malformed request or invalid JSON (reason on stderr)
+
+The input must be UTF-8 without a byte-order mark. On Windows PowerShell 5.1,
+write the file with plain Set-Content; "-Encoding UTF8" and ">" redirection
+both prepend a mark that is rejected as INVALID_JSON.
+"""
+
+
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+        sys.stdout.write(USAGE)
+        return 0
     try:
         raw = sys.stdin.buffer.read() if len(sys.argv) == 1 or sys.argv[1] == "-" else open(sys.argv[1], "rb").read()
         request = json.loads(raw.decode("utf-8"))

@@ -2,7 +2,14 @@
 
 ## [Unreleased]
 
-_No changes after the local 0.1.0 candidate._
+### Added
+
+- Added a `--help`/`-h` fast path to the `releasebench` console entry point documenting the
+  request-file interface, exit codes, and the Windows byte-order-mark pitfall.
+
+### Changed
+
+- Rewrote README.md for external readers and moved the detailed do-not-do ledger to STATUS.md.
 
 ## [0.1.0] - candidate
 
