@@ -4,14 +4,16 @@
 
 # ReleaseBench
 
+[![pipeline status](https://gitlab.com/krahul02004/ReleaseBench/badges/main/pipeline.svg)](https://gitlab.com/krahul02004/ReleaseBench/-/commits/main)
+[![PyPI version](https://img.shields.io/pypi/v/releasebench)](https://pypi.org/project/releasebench/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Candidate: private pre-public](https://img.shields.io/badge/candidate-private%20pre--public-blue.svg)](docs/public/READINESS.md)
 
 ReleaseBench is a ten-skill atomic family for taking a private repository to the last
 evidence-backed checkpoint before outward publication. It separates local preparation from
 owner-gated host, release, registry, marketplace, installation, and public-verification actions.
 
-This repository is a private, inactive candidate. It does not grant lifecycle eligibility.
+This repository is public and its router ships on PyPI, but the skill family itself remains an
+inactive candidate: nothing here grants lifecycle eligibility.
 
 ## Atomic family
 
@@ -64,7 +66,7 @@ python -B tests/releasebench/run_tests.py
 The local GitLab CI definition runs this suite plus one syntax check per bundled Node script. Its
 job scripts contain no explicit provider, registry, marketplace, publication, or product-remote
 command. The runner may still resolve the external floating container images declared by the jobs,
-so hosted CI is externally gated, unverified, and not claimed as offline-deterministic evidence. A
+so hosted pipeline results are not claimed as offline-deterministic evidence. A
 full local qualification additionally runs:
 
 ```powershell
@@ -115,19 +117,26 @@ Or invoke one direct leaf, for example:
 Codex metadata is bundled under each skill's `agents/openai.yaml`, but implicit invocation remains
 disabled for this inactive candidate.
 
-## Python package
+## Install
 
-The deterministic router is also packaged as an installable Python module with no runtime
-dependencies beyond the standard library:
+The deterministic router is published on PyPI as
+[`releasebench`](https://pypi.org/project/releasebench/), with no runtime dependencies beyond the
+standard library:
 
 ```powershell
-pip install .
+pip install releasebench
 ```
 
 The `releasebench` console entry point (equivalently `python -m releasebench` or
 `python -B src/releasebench/router.py`) reads one typed JSON routing request from stdin or a file
-argument and writes one canonical routing receipt. Installing the package changes no skill lifecycle
-state and performs no outward action.
+argument and writes one canonical routing receipt:
+
+```powershell
+echo '{"contract_version":"releasebench.route-request/v1","request_id":"demo-1","intents":["scan-secrets"]}' | releasebench -
+```
+
+Installing the package changes no skill lifecycle state and performs no outward action. To install
+from a checkout instead, run `pip install .`.
 
 ## Source policy
 
