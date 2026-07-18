@@ -132,7 +132,9 @@ The `releasebench` console entry point (equivalently `python -m releasebench` or
 argument and writes one canonical routing receipt:
 
 ```powershell
-echo '{"contract_version":"releasebench.route-request/v1","request_id":"demo-1","intents":["scan-secrets"]}' | releasebench -
+'{"contract_version":"releasebench.route-request/v1","request_id":"demo-1","intents":["scan-secrets"]}' |
+  Set-Content request.json
+releasebench request.json
 ```
 
 Installing the package changes no skill lifecycle state and performs no outward action. To install
