@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// audit-repo.mjs — read-only OSS-readiness audit. Reports which governance / fork-ability files are
+// audit-repo.mjs: read-only OSS-readiness audit. Reports which governance / fork-ability files are
 // present vs missing, by severity, and points at the deeper sibling skills. No writes, no network.
 // Exits 1 if any MUST-HAVE is missing (so it's CI-usable).
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -15,7 +15,7 @@ const firstOf = (...ps) => ps.find(has);
 // --- MUST-HAVE ---
 const license = firstOf('LICENSE', 'LICENSE.md', 'LICENSE.txt');
 if (!license) {
-  add('MUST', 'LICENSE', 'add a license (e.g. MIT) — with none, the repo is "all rights reserved"');
+  add('MUST', 'LICENSE', 'add a license (e.g. MIT); with none, the repo is "all rights reserved"');
 } else {
   const txt = readFileSync(join(repo, license), 'utf8');
   // No \b anchors: '[' '<' '{' are non-word chars, so word boundaries never match before them.
@@ -34,7 +34,7 @@ for (const [p, item, why] of [
   ['CODE_OF_CONDUCT.md', 'CODE_OF_CONDUCT', 'community standards'],
   ['CHANGELOG.md', 'CHANGELOG', 'notable changes'],
   ['.gitignore', '.gitignore', 'ignore build artifacts and secret files'],
-]) (has(p) ? present.push(item) : add('RECOMMENDED', item, `add ${item} — ${why}`));
+]) (has(p) ? present.push(item) : add('RECOMMENDED', item, `add ${item}: ${why}`));
 
 // --- .github/ ---
 const wfDir = join(repo, '.github', 'workflows');
@@ -48,7 +48,7 @@ if (has('package.json')) {
   try {
     const pkg = JSON.parse(readFileSync(join(repo, 'package.json'), 'utf8'));
     pkg.license ? present.push('package.json license') : add('RECOMMENDED', 'package.json "license"', 'add a "license" field');
-  } catch { /* malformed package.json — not this script's job */ }
+  } catch { /* malformed package.json (not this script's job) */ }
 }
 if (has('.env.example') || has('.env.sample')) present.push('.env.example');
 
@@ -61,7 +61,7 @@ const order = { MUST: 0, RECOMMENDED: 1, INFO: 2 };
 miss.sort((a, b) => order[a.sev] - order[b.sev]);
 console.log(`[audit-repo] ${repo}`);
 console.log(`present: ${present.length ? present.join(', ') : '(none)'}\n`);
-for (const m of miss) console.log(`  [${m.sev}] ${m.item} — ${m.fix}`);
+for (const m of miss) console.log(`  [${m.sev}] ${m.item}: ${m.fix}`);
 const mustMissing = miss.filter((m) => m.sev === 'MUST').length;
 const recMissing = miss.filter((m) => m.sev === 'RECOMMENDED').length;
 console.log(`\nsummary: ${mustMissing} must-have missing, ${recMissing} recommended missing, ${present.length} present.`);

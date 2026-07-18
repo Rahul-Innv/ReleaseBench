@@ -1,6 +1,6 @@
 # Status
 
-The README carries the product story; this page carries the fine print — where the project stands,
+The README carries the product story; this page carries the fine print: where the project stands,
 what it deliberately does not do, and the process language its formal documents use.
 
 ## Where things stand
@@ -60,7 +60,7 @@ then parses every JSON document, runs `node --check` on every bundled `.mjs` scr
 exact staged tree from a fresh worktree.
 
 One caveat about CI: the GitLab CI jobs run only the offline suite and the Node syntax checks, and
-their scripts contain no network, registry, or publish command — but the hosted runner still pulls
+their scripts contain no network, registry, or publish command, but the hosted runner still pulls
 the declared floating container images (`python:3.12-alpine`, `node:22-alpine`). Hosted pipeline
 results are therefore not claimed as offline-deterministic evidence; the suite run on your own
 checkout is the ground truth.
@@ -80,9 +80,9 @@ archives.
 
 ## The formal contracts
 
-- [Readiness ledger](docs/public/READINESS.md) — phase-by-phase local status and what remains gated.
-- [Validation contract](docs/public/VALIDATION.md) — the evidence required before acceptance.
-- [Dependency contract](docs/public/DEPENDENCIES.md) — what the family owns and bundles.
-- [Release candidate](docs/public/RELEASE-CANDIDATE.md) — the `0.1.0` version decision.
-- [Owner handoff](docs/public/OWNER-HANDOFF.md) — the prepared owner-only outward steps.
-- [Configuration](docs/public/CONFIGURATION.md) — why there is no runtime configuration contract.
+- [Readiness ledger](docs/public/READINESS.md): phase-by-phase local status and what remains gated.
+- [Validation contract](docs/public/VALIDATION.md): the evidence required before acceptance.
+- [Dependency contract](docs/public/DEPENDENCIES.md): what the family owns and bundles.
+- [Release candidate](docs/public/RELEASE-CANDIDATE.md): the `0.1.0` version decision.
+- [Owner handoff](docs/public/OWNER-HANDOFF.md): the prepared owner-only outward steps.
+- [Configuration](docs/public/CONFIGURATION.md): why there is no runtime configuration contract.
