@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Route"
+  short_description: "Select one safe ReleaseBench next step"
+  default_prompt: "Use $releasebench-route to select exactly one next ReleaseBench leaf or fail closed."
+policy:
+  allow_implicit_invocation: false

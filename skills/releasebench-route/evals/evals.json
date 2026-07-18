@@ -1,0 +1,41 @@
+{
+  "skill_name": "releasebench-route",
+  "_note": "Router. Lightweight+ tier: >=3 cases, >=1 near-miss should_trigger:false, >=1 with expected_behavior. Full model-eval (with/without) is run for this shared router via the authoring-skills lifecycle.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "Take my private GitLab repo all the way public and turn it into a showpiece I can link in my YC application.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Sequences the phases (ground, hygiene, health gates, OSS governance, README showpiece, releases, publish/metadata/verify, npm) and delegates each to a focused skill rather than re-implementing them",
+        "Separates what Claude can do from what only the owner can do (make public, npm publish, avatar upload)",
+        "Does not ask the user to paste a token/secret into chat",
+        "Does not push, publish, or change visibility without explicit confirmation"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "Open-source this repository and get it fully ready to show off.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Delegates the governance-file readiness to releasebench-prepare-repository rather than duplicating it",
+        "Runs health gates (tests, secret scan) before showcasing"
+      ]
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "Ship this repo publicly — description, topics, badges, releases, and npm.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "Just scan this repo for committed secrets, nothing else.",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "Review the diff on my current branch for bugs.",
+      "should_trigger": false
+    }
+  ]
+}

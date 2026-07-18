@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Scan Secrets"
+  short_description: "Scan tracked files for secret risks"
+  default_prompt: "Use $releasebench-scan-secrets to scan this repository for secret-hygiene risks without exposing values."
+policy:
+  allow_implicit_invocation: false

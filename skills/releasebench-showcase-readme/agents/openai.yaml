@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Showcase README"
+  short_description: "Build a truthful repository showcase"
+  default_prompt: "Use $releasebench-showcase-readme to make this README a truthful, evidence-backed showpiece."
+policy:
+  allow_implicit_invocation: false

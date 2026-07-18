@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Audit Repository"
+  short_description: "Audit repository launch-readiness gaps"
+  default_prompt: "Use $releasebench-audit-repository to produce a read-only launch-readiness gap report."
+policy:
+  allow_implicit_invocation: false

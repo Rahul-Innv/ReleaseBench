@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Release Version"
+  short_description: "Prepare a versioned release locally"
+  default_prompt: "Use $releasebench-release-version to prepare the next version locally without creating or pushing a tag."
+policy:
+  allow_implicit_invocation: false

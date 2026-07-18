@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Prepare Repository"
+  short_description: "Prepare a repository locally for launch"
+  default_prompt: "Use $releasebench-prepare-repository to prepare this repository locally and stop before outward actions."
+policy:
+  allow_implicit_invocation: false

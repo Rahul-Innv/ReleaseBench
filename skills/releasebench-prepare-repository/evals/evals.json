@@ -1,0 +1,36 @@
+{
+  "skill_name": "releasebench-prepare-repository",
+  "_note": "Lightweight tier. Run the model eval via the authoring-skills lifecycle; eval-harness.mjs validates this set is well-formed.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "get this repo ready to open-source / make it public",
+      "should_trigger": true,
+      "expected_behavior": [
+        "runs the steps in order: releasebench-audit-repository, then releasebench-scan-secrets, then releasebench-document-config (if there's a config), then releasebench-scaffold-governance",
+        "re-audits at the end to confirm 0 must-haves missing",
+        "lists the human-only GitHub steps (secret scanning + push protection, About panel, make-public) that a skill cannot do"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "do a full open-source readiness pass on my project",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "what do I need to do before making this repository public?",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "just scan for committed secrets",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "review my latest commit for bugs",
+      "should_trigger": false
+    }
+  ]
+}

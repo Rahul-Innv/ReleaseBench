@@ -1,0 +1,32 @@
+{
+  "skill_name": "releasebench-release-version",
+  "_note": "Lightweight tier: >=3 cases, >=1 near-miss should_trigger:false, >=1 with expected_behavior.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "Cut a new release for this repo — update the changelog, bump the version, tag it, and create the GitLab Release.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Checks existing tags first and does not reuse an already-released version",
+        "Moves CHANGELOG [Unreleased] under a dated semver heading and bumps the package version",
+        "Creates a host Release object per tag (states that a tag alone is not a Release)",
+        "Treats pushing the tag and creating the Release as confirmed outward actions"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "Tag v0.3.0 and set up the releases page.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "Bump the version and cut a changelog entry for the release.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "Publish this package to npm.",
+      "should_trigger": false
+    }
+  ]
+}

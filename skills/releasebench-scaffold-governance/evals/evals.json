@@ -1,0 +1,45 @@
+{
+  "skill_name": "releasebench-scaffold-governance",
+  "_note": "Lightweight tier. Run the model eval via the authoring-skills lifecycle; eval-harness.mjs validates this set is well-formed.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "scaffold the governance files I need to make this repo public",
+      "should_trigger": true,
+      "expected_behavior": [
+        "first checks what's already present (only scaffolds MISSING files)",
+        "fills the templates with this project's specifics (name, owner, year, license, test command)",
+        "never overwrites an existing file — proposes new files as reviewable diffs",
+        "appends the .gitignore secrets block only if missing (additive)"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "add a CONTRIBUTING, SECURITY, and CODE_OF_CONDUCT to my repo",
+      "should_trigger": true,
+      "expected_behavior": [
+        "uses the bundled templates and fills the placeholders, not generic boilerplate"
+      ]
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "create a LICENSE and issue/PR templates for this project",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "generate a JSON schema and validator for my config file",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "write the feature documentation in my README",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-sibling-orchestrator",
+      "prompt": "do a full open-source readiness pass",
+      "should_trigger": false
+    }
+  ]
+}

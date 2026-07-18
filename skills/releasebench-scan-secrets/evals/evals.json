@@ -1,0 +1,45 @@
+{
+  "skill_name": "releasebench-scan-secrets",
+  "_note": "Lightweight tier. Run the model eval via the authoring-skills lifecycle; eval-harness.mjs validates this set is well-formed.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "check my repo for committed secrets before I make it public",
+      "should_trigger": true,
+      "expected_behavior": [
+        "runs the bundled scan-secrets.mjs on the repo (tracked sensitive files + .gitignore coverage + hardcoded secrets)",
+        "reports findings by severity with the secret values redacted",
+        "for a committed secret, advises ROTATE then purge from git history — not just deleting in a new commit; gives the owner the purge command rather than running the history rewrite itself",
+        "your…-prefixed values (e.g. your-api-key-here) are treated as placeholders, not findings; lockfiles incl. package-lock.json are not scanned"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "am I leaking any API keys, and is my .env safe?",
+      "should_trigger": true,
+      "expected_behavior": [
+        "checks whether .env / key files are git-tracked and whether .gitignore covers them"
+      ]
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "audit this project's secret hygiene / scan for leaked credentials",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "write the login and auth code for my web app",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "rotate my AWS access keys for me",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-sibling-review",
+      "prompt": "security review of my pending changes before I push",
+      "should_trigger": false
+    }
+  ]
+}

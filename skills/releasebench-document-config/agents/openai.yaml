@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Document Config"
+  short_description: "Align config schema, validator, and docs"
+  default_prompt: "Use $releasebench-document-config to align this configuration's schema, validator, and customization documentation."
+policy:
+  allow_implicit_invocation: false

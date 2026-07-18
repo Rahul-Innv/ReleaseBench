@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "positive_cases": [
+    {
+      "id": "route-full-flow",
+      "prompt": "Take this private repository to the last safe checkpoint before publication.",
+      "trigger_skill": "releasebench-route",
+      "request": {"full_flow": true},
+      "expected_leaf": "releasebench-prepare-repository"
+    },
+    {
+      "id": "prepare-repository",
+      "prompt": "Run the complete local repository preparation pass and stop before outward actions.",
+      "trigger_skill": "releasebench-prepare-repository",
+      "request": {"intents": ["prepare-repository"]},
+      "expected_leaf": "releasebench-prepare-repository"
+    },
+    {
+      "id": "audit-repository",
+      "prompt": "Audit which open-source governance and forkability files this repository is missing.",
+      "trigger_skill": "releasebench-audit-repository",
+      "request": {"intents": ["audit-repository"]},
+      "expected_leaf": "releasebench-audit-repository"
+    },
+    {
+      "id": "scan-secrets",
+      "prompt": "Scan tracked files for committed-secret risks before this repository ships.",
+      "trigger_skill": "releasebench-scan-secrets",
+      "request": {"intents": ["scan-secrets"]},
+      "expected_leaf": "releasebench-scan-secrets"
+    },
+    {
+      "id": "scaffold-governance",
+      "prompt": "Scaffold only the missing LICENSE, security, contribution, conduct, and issue templates.",
+      "trigger_skill": "releasebench-scaffold-governance",
+      "request": {"intents": ["scaffold-governance"]},
+      "expected_leaf": "releasebench-scaffold-governance"
+    },
+    {
+      "id": "showcase-readme",
+      "prompt": "Turn this README into a truthful portfolio-grade showpiece with a real demo and architecture diagram.",
+      "trigger_skill": "releasebench-showcase-readme",
+      "request": {"intents": ["showcase-readme"]},
+      "expected_leaf": "releasebench-showcase-readme"
+    },
+    {
+      "id": "publish-repository",
+      "prompt": "Prepare the owner handoff for first push, host metadata, visibility, and post-public verification.",
+      "trigger_skill": "releasebench-publish-repository",
+      "request": {"intents": ["publish-repository"]},
+      "expected_leaf": "releasebench-publish-repository"
+    },
+    {
+      "id": "release-version",
+      "prompt": "Prepare the changelog and version locally for the next release without creating a tag.",
+      "trigger_skill": "releasebench-release-version",
+      "request": {"intents": ["release-version"]},
+      "expected_leaf": "releasebench-release-version"
+    },
+    {
+      "id": "prepare-package",
+      "prompt": "Prepare this package and inspect an offline dry-run artifact without contacting or publishing to a registry.",
+      "trigger_skill": "releasebench-prepare-package",
+      "request": {"intents": ["prepare-package"]},
+      "expected_leaf": "releasebench-prepare-package"
+    },
+    {
+      "id": "document-config",
+      "prompt": "Give this JSON configuration one schema, validator, and matching customization documentation.",
+      "trigger_skill": "releasebench-document-config",
+      "request": {"intents": ["document-config"]},
+      "expected_leaf": "releasebench-document-config"
+    }
+  ],
+  "near_miss_cases": [
+    {"id": "route-chosen-leaf", "excluded_skill": "releasebench-route", "prompt": "The audit leaf is already selected; run that audit now."},
+    {"id": "prepare-vs-audit", "excluded_skill": "releasebench-prepare-repository", "prompt": "Only report the missing governance files; do not prepare the repository."},
+    {"id": "audit-vs-scaffold", "excluded_skill": "releasebench-audit-repository", "prompt": "Create the missing CONTRIBUTING and SECURITY files."},
+    {"id": "secrets-vs-auth", "excluded_skill": "releasebench-scan-secrets", "prompt": "Implement login and authentication for the application."},
+    {"id": "scaffold-vs-config", "excluded_skill": "releasebench-scaffold-governance", "prompt": "Generate a JSON schema and runtime validator for settings.json."},
+    {"id": "showcase-vs-publish", "excluded_skill": "releasebench-showcase-readme", "prompt": "Change the project visibility and host topics."},
+    {"id": "publish-vs-readme", "excluded_skill": "releasebench-publish-repository", "prompt": "Add a Mermaid diagram to the README only."},
+    {"id": "release-vs-package", "excluded_skill": "releasebench-release-version", "prompt": "Inspect what the npm tarball would contain."},
+    {"id": "package-vs-host", "excluded_skill": "releasebench-prepare-package", "prompt": "Set the GitLab description and repository topics."},
+    {"id": "config-vs-format", "excluded_skill": "releasebench-document-config", "prompt": "Pretty-print this JSON file without changing its contract."}
+  ]
+}

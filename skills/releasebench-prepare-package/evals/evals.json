@@ -1,0 +1,31 @@
+{
+  "skill_name": "releasebench-prepare-package",
+  "_note": "Lightweight tier: >=3 cases, >=1 near-miss should_trigger:false, >=1 with expected_behavior.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "Get this package ready to publish to npm so people can npx it.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Checks the name is available, sets private:false, adds a files whitelist and keywords, and confirms the bin shebang",
+        "Runs npm pack --dry-run to show what would ship (runtime + docs only, no tests/secrets)",
+        "Leaves npm publish to the owner and does not attempt to publish itself"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "Prepare package.json for publishing and show me what would be in the tarball.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "Make this CLI installable from npm.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "Make the GitLab repo public and set topics.",
+      "should_trigger": false
+    }
+  ]
+}

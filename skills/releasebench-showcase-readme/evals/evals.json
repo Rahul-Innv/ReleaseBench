@@ -1,0 +1,31 @@
+{
+  "skill_name": "releasebench-showcase-readme",
+  "_note": "Lightweight tier: >=3 cases, >=1 near-miss should_trigger:false, >=1 with expected_behavior.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "Make my README look premium — add badges, a demo, an architecture diagram, and a proof section.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Adds badges, a proof section, a demo, and a mermaid architecture diagram to the README",
+        "Keeps the demo truthful (uses the tool's real command output, a generic example, no private data)",
+        "Generates a self-contained demo.svg if a real screen recording isn't available"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "Add a logo and a roadmap and polish the repo's storefront for a YC audience.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "Generate a demo GIF/graphic and an architecture diagram for the README.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "Make the repository public and set its description and topics.",
+      "should_trigger": false
+    }
+  ]
+}

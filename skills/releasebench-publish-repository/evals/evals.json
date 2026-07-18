@@ -1,0 +1,31 @@
+{
+  "skill_name": "releasebench-publish-repository",
+  "_note": "Lightweight tier: >=3 cases, >=1 near-miss should_trigger:false, >=1 with expected_behavior.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "Make this GitLab repo public and set its description and topics.",
+      "should_trigger": true,
+      "expected_behavior": [
+        "Treats making the repo public as an owner action and provides both an API one-liner and a no-token UI path",
+        "Does not ask the user to paste a token into chat",
+        "After it is public, verifies visibility/topics/releases/CI via the unauth host API"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "Set a project avatar and verify the repo actually went public.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "Add topics and a description to my repository on GitHub.",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "Add badges and a demo to my README.",
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "skill_name": "releasebench-document-config",
+  "_note": "Lightweight tier. Run the model eval via the authoring-skills lifecycle; eval-harness.mjs validates this set is well-formed. Field names follow Anthropic skill-creator (see authoring-skills/references/eval-schemas.md).",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "make my config/settings.json self-documenting and validated",
+      "should_trigger": true,
+      "expected_behavior": [
+        "proposes a JSON Schema referenced from the config via $schema",
+        "proposes a dependency-free fail-fast validator that collects all errors",
+        "proposes a Make-it-yours README section for the key fields",
+        "the schema descriptions, validator messages, and README table use the SAME field wording"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "add editor autocomplete and startup validation for my app config, and make it fork-friendly",
+      "should_trigger": true,
+      "expected_behavior": [
+        "learns the real contract from how the code reads config keys (required vs optional)",
+        "marks required = only the keys the code truly needs",
+        "adds a CONFIG_PATH-style override so an alternate config can be validated"
+      ]
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "retire the _comment keys in our config and give it a proper schema",
+      "should_trigger": true,
+      "expected_behavior": [
+        "confirms no code reads the _comment keys before removing them",
+        "moves the comment content into schema descriptions"
+      ]
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "format this JSON file nicely / pretty-print it",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "fix the bug in my config-loading code that crashes on startup",
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "releasebench",
+  "displayName": "ReleaseBench",
+  "version": "0.1.0",
+  "description": "Packages ReleaseBench's ten atomic skills for evidence-backed private pre-public repository preparation.",
+  "author": {
+    "name": "Rahul Krishna"
+  },
+  "keywords": [
+    "open-source",
+    "repo-readiness",
+    "release",
+    "publishing",
+    "claude-code"
+  ]
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Scaffold Governance"
+  short_description: "Scaffold only missing governance files"
+  default_prompt: "Use $releasebench-scaffold-governance to propose only the missing repository governance files."
+policy:
+  allow_implicit_invocation: false

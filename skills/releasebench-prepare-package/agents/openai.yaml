@@ -1,0 +1,6 @@
+interface:
+  display_name: "ReleaseBench Prepare Package"
+  short_description: "Validate a package with offline dry runs"
+  default_prompt: "Use $releasebench-prepare-package to prepare and dry-run this package without contacting or publishing to a registry."
+policy:
+  allow_implicit_invocation: false

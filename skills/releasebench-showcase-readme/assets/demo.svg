@@ -1,0 +1,24 @@
+<!-- TEMPLATE: adapt every text line to the real tool. Replace commands/output with strings the tool
+     actually prints (capture the command's help output / real status first). Keep a GENERIC example — never the
+     owner's private data. Colors: $=#6e7681 cmd=#e6edf3 arg=#a5d6ff ok=#3fb950 warn=#d29922 dim=#8b949e -->
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="14.5">
+  <rect x="6" y="6" width="808" height="308" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+  <rect x="6" y="6" width="808" height="38" rx="10" fill="#161b22"/>
+  <rect x="6" y="34" width="808" height="10" fill="#161b22"/>
+  <circle cx="30" cy="25" r="6" fill="#ff5f56"/>
+  <circle cx="50" cy="25" r="6" fill="#ffbd2e"/>
+  <circle cx="70" cy="25" r="6" fill="#27c93f"/>
+  <text x="410" y="30" text-anchor="middle" fill="#8b949e" font-size="13">&lt;tool&gt; — &lt;one-line tagline&gt;</text>
+
+  <text x="26" y="78" xml:space="preserve"><tspan fill="#6e7681">$ </tspan><tspan fill="#e6edf3">&lt;tool&gt; &lt;command&gt; </tspan><tspan fill="#a5d6ff">"&lt;example input&gt;"</tspan></text>
+  <text x="26" y="102" xml:space="preserve"><tspan fill="#3fb950">✔ </tspan><tspan fill="#8b949e">&lt;real success line the tool prints&gt;</tspan></text>
+
+  <text x="26" y="142" xml:space="preserve"><tspan fill="#6e7681">$ </tspan><tspan fill="#e6edf3">&lt;tool&gt; &lt;run command&gt;</tspan></text>
+  <text x="26" y="166" xml:space="preserve"><tspan fill="#79c0ff">▶ </tspan><tspan fill="#8b949e">&lt;progress line&gt;</tspan></text>
+  <text x="26" y="190" xml:space="preserve"><tspan fill="#3fb950">✔ </tspan><tspan fill="#8b949e">&lt;done line, incl. result / cost&gt;</tspan></text>
+
+  <text x="26" y="230" xml:space="preserve"><tspan fill="#6e7681">$ </tspan><tspan fill="#e6edf3">&lt;tool&gt; &lt;summary command&gt;</tspan></text>
+  <text x="26" y="254" xml:space="preserve"><tspan fill="#e6edf3" font-weight="bold">&lt;headline result&gt;</tspan><tspan fill="#8b949e"> · &lt;detail&gt;</tspan></text>
+
+  <text x="26" y="294" xml:space="preserve"><tspan fill="#6e7681">&lt;one-sentence caption of what just happened&gt;</tspan></text>
+</svg>

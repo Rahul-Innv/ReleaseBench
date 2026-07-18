@@ -1,0 +1,36 @@
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+*.tgz
+
+# Local runtime and test artifacts
+.cache/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*.log
+tmp/
+temp/
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+*.egg-info/
+__pycache__/
+dist/

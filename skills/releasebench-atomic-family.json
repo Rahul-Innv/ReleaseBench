@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "family": "releasebench",
+  "plugin_id": "releasebench",
+  "canonical_owner": "releasebench-family",
+  "authority_state": "candidate-inactive",
+  "visibility_state": "private-prepublic",
+  "router_contract": {
+    "id": "releasebench-route",
+    "entrypoint": "src/releasebench/router.py",
+    "outcome": "one-next-leaf-or-no-safe-route-receipt",
+    "contains_leaf_implementation": false,
+    "ambiguity_policy": "fail-closed",
+    "full_flow_policy": "select-first-incomplete-stage-only"
+  },
+  "leaves": [
+    {
+      "id": "releasebench-route",
+      "kind": "router",
+      "intent_owner": "family-routing",
+      "independently_measurable_outcome": "one-next-leaf-or-no-safe-route-receipt",
+      "eval_cases": 5,
+      "non_goals": ["perform-leaf-work", "edit-target-repository", "execute-outward-action", "silently-resolve-ambiguity"]
+    },
+    {
+      "id": "releasebench-prepare-repository",
+      "kind": "atomic-coordinator",
+      "intent_owner": "local-repository-preparation",
+      "independently_measurable_outcome": "repository-preparation-receipt",
+      "eval_cases": 5,
+      "non_goals": ["showcase-readme", "release-version", "publish-repository", "prepare-package"]
+    },
+    {
+      "id": "releasebench-audit-repository",
+      "kind": "atomic-leaf",
+      "intent_owner": "repository-health-audit",
+      "independently_measurable_outcome": "read-only-health-gap-report",
+      "eval_cases": 6,
+      "non_goals": ["write-governance-files", "scan-secret-values", "fix-ci", "publish-repository"]
+    },
+    {
+      "id": "releasebench-scan-secrets",
+      "kind": "atomic-leaf",
+      "intent_owner": "repository-secret-hygiene",
+      "independently_measurable_outcome": "redacted-secret-risk-report",
+      "eval_cases": 6,
+      "non_goals": ["rotate-credentials", "rewrite-history", "publish-findings", "audit-general-code-health"]
+    },
+    {
+      "id": "releasebench-scaffold-governance",
+      "kind": "atomic-leaf",
+      "intent_owner": "repository-governance-scaffolding",
+      "independently_measurable_outcome": "reviewable-missing-governance-diff",
+      "eval_cases": 6,
+      "non_goals": ["overwrite-existing-files", "document-config", "showcase-readme", "publish-repository"]
+    },
+    {
+      "id": "releasebench-showcase-readme",
+      "kind": "atomic-leaf",
+      "intent_owner": "truthful-repository-showcase",
+      "independently_measurable_outcome": "truthful-showcase-readme-diff",
+      "eval_cases": 4,
+      "non_goals": ["scaffold-governance", "set-host-metadata", "create-release", "invent-proof"]
+    },
+    {
+      "id": "releasebench-publish-repository",
+      "kind": "atomic-leaf",
+      "intent_owner": "repository-host-publication-handoff",
+      "independently_measurable_outcome": "closed-gate-host-handoff-receipt",
+      "eval_cases": 4,
+      "non_goals": ["execute-first-push", "change-visibility", "write-host-metadata", "perform-network-verification"]
+    },
+    {
+      "id": "releasebench-release-version",
+      "kind": "atomic-leaf",
+      "intent_owner": "local-version-release-preparation",
+      "independently_measurable_outcome": "local-release-preparation-receipt",
+      "eval_cases": 4,
+      "non_goals": ["create-tag", "push-tag", "create-host-release", "publish-package"]
+    },
+    {
+      "id": "releasebench-prepare-package",
+      "kind": "atomic-leaf",
+      "intent_owner": "offline-package-preparation",
+      "independently_measurable_outcome": "offline-package-dry-run-receipt",
+      "eval_cases": 4,
+      "non_goals": ["query-registry", "claim-package-name", "authenticate", "publish-package"]
+    },
+    {
+      "id": "releasebench-document-config",
+      "kind": "atomic-leaf",
+      "intent_owner": "configuration-contract-documentation",
+      "independently_measurable_outcome": "schema-validator-readme-contract-diff",
+      "eval_cases": 5,
+      "non_goals": ["fix-config-loader-bugs", "add-runtime-dependencies", "publish-repository", "invent-config-requirements"]
+    }
+  ],
+  "internal_primitives": [
+    {
+      "id": "releasebench-core-lesson-reader",
+      "kind": "internal-primitive",
+      "public_skill": false
+    },
+    {
+      "id": "releasebench-core-plugin-manifest",
+      "kind": "internal-primitive",
+      "public_skill": false
+    },
+    {
+      "id": "releasebench-core-portable-agent-guide",
+      "kind": "internal-primitive",
+      "public_skill": false
+    }
+  ],
+  "closed_actions": [
+    "remote-project-creation-and-first-push",
+    "host-visibility-metadata-topics-avatar-writes",
+    "host-public-api-and-network-verification",
+    "local-tag-creation-and-outward-tag-push",
+    "host-release-creation-or-backfill",
+    "package-registry-name-availability-reads",
+    "package-publication",
+    "remote-image-reachability-checks"
+  ]
+}

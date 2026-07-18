@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/<owner>/<repo>/blob/main/<path>/<config>.schema.json",
+  "title": "<Project> config",
+  "description": "Single source of truth for <project>. <One line on the most important invariant, e.g. what unit prices are in, how a derived value is computed.>",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["<requiredKeyA>", "<requiredKeyB>", "<requiredArray>"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path/URL to this JSON Schema, so editors give autocomplete and hover docs."
+    },
+
+    "<numberField>": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "<What it means and the unit. Reuse this exact text in the validator + README.>"
+    },
+    "<percentField>": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "<A percentage, 0..100.>"
+    },
+    "<emailField>": {
+      "type": "string",
+      "format": "email",
+      "description": "<Where notifications go. Often overridable via an env var — note that here.>"
+    },
+
+    "<enumObject>": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider"],
+      "description": "<A sub-object with a fixed-choice field.>",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": ["<onlySupportedValue>"],
+          "description": "<Must be one of the enum values. Explain why others were removed if relevant.>"
+        }
+      }
+    },
+
+    "<requiredArray>": {
+      "type": "array",
+      "minItems": 1,
+      "description": "<The list a forker edits to make the tool theirs.>",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "<itemRequiredField>"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z0-9-]+$",
+            "description": "<Stable unique id (used as a state/storage key — must not collide or change).>"
+          },
+          "<itemRequiredField>": {
+            "type": "string",
+            "minLength": 1,
+            "description": "<Required per-item field.>"
+          },
+          "<itemOptionalField>": {
+            "type": "string",
+            "description": "<Optional per-item field (no entry in the item 'required' list).>"
+          }
+        }
+      }
+    }
+  }
+}

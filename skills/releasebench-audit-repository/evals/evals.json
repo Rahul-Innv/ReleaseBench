@@ -1,0 +1,45 @@
+{
+  "skill_name": "releasebench-audit-repository",
+  "_note": "Lightweight tier. Run the model eval via the authoring-skills lifecycle; eval-harness.mjs validates this set is well-formed.",
+  "evals": [
+    {
+      "id": "trigger-positive-1",
+      "prompt": "is my repo ready to open-source? what's missing before I make it public?",
+      "should_trigger": true,
+      "expected_behavior": [
+        "runs the bundled audit-repo.mjs on the repo",
+        "reports which governance/fork-ability files are present vs missing, by severity (MUST/RECOMMENDED)",
+        "points at releasebench-scaffold-governance for the missing files and at releasebench-scan-secrets / releasebench-document-config for the deeper checks"
+      ]
+    },
+    {
+      "id": "trigger-positive-2",
+      "prompt": "audit this repo's open-source / community health",
+      "should_trigger": true,
+      "expected_behavior": [
+        "checks for LICENSE (with a real copyright), README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CHANGELOG, .gitignore, issue/PR templates, CI",
+        "a LICENSE whose copyright holder is a placeholder ([name], <name>, {{COPYRIGHT_HOLDER}}) is reported as a MUST-fix even when the year is filled in — never as present"
+      ]
+    },
+    {
+      "id": "trigger-positive-3",
+      "prompt": "what governance files am I missing for a public GitHub repo?",
+      "should_trigger": true
+    },
+    {
+      "id": "trigger-nearmiss-1",
+      "prompt": "review my latest diff for bugs",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-2",
+      "prompt": "fix the failing test in CI",
+      "should_trigger": false
+    },
+    {
+      "id": "trigger-nearmiss-sibling-orchestrator",
+      "prompt": "get this repo ready to go public",
+      "should_trigger": false
+    }
+  ]
+}

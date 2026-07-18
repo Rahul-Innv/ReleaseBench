@@ -1,0 +1,17 @@
+stages:
+  - test
+
+atomic-contracts:
+  stage: test
+  image: python:3.12-alpine
+  variables:
+    PYTHONDONTWRITEBYTECODE: "1"
+    PYTHONHASHSEED: "0"
+  script:
+    - python -B tests/releasebench/run_tests.py
+
+node-syntax:
+  stage: test
+  image: node:22-alpine
+  script:
+    - find skills -type f -name '*.mjs' -exec node --check '{}' \;
