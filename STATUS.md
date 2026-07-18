@@ -8,7 +8,10 @@ what it deliberately does not do, and the process language its formal documents 
 - Version `0.1.0` everywhere it is declared: the plugin manifest (`.claude-plugin/plugin.json`),
   the Python package (`pyproject.toml`), and the changelog.
 - Published so far: this repository on GitLab and the `releasebench` package on PyPI.
-- Not yet done: no git tag, no GitLab Release object, no marketplace or skill-directory listing.
+- Distribution: the repository now ships a self-hosted plugin marketplace manifest
+  (`.claude-plugin/marketplace.json`) you add by URL in Claude Code. It is not published to any
+  external or central marketplace registry, and no skill is listed in a third-party skill directory.
+- Not yet done: no git tag and no GitLab Release object.
 - The deterministic suite passes: `tests=19 failures=0 errors=0 skipped=0`.
 
 ## What ReleaseBench never does on its own

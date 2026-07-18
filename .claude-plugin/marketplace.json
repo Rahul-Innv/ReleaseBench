@@ -1,0 +1,16 @@
+{
+  "name": "releasebench",
+  "owner": { "name": "Rahul Krishna" },
+  "description": "Self-hosted Claude Code marketplace for ReleaseBench, the evidence-backed pre-public repository preparation plugin (not published to any external registry).",
+  "plugins": [
+    {
+      "name": "releasebench",
+      "source": ".",
+      "displayName": "ReleaseBench",
+      "description": "Ten atomic skills that ready a private repository to go public (audit, secret scan, governance files, README, releases), each stopping at a reviewable result instead of a push or publish.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "category": "devops"
+    }
+  ]
+}

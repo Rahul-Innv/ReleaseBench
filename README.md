@@ -16,6 +16,35 @@ performs on its own. Without checks like these, mistakes become public the momen
 does: a committed API key, a missing license, or an untested install command ships to the world in
 one push.
 
+## Getting started
+
+**Prerequisites:** Python 3.10+ (standard library only) for the CLI, Node 18+ to run the bundled
+audit and secret scripts directly, and Claude Code to use ReleaseBench as a plugin.
+
+**Install:**
+
+- In Claude Code (one command): `/plugin marketplace add https://gitlab.com/krahul02004/ReleaseBench`
+  then `/plugin install releasebench`. That reads the self-hosted marketplace manifest committed in
+  this repository (`.claude-plugin/marketplace.json`); nothing is published to an external or central
+  registry.
+- Python CLI: `pip install releasebench`.
+
+**Check it works:** hand the router one typed request and read the single-line receipt it prints
+(write the file with plain `Set-Content` so no byte-order mark is added):
+
+```powershell
+'{"contract_version":"releasebench.route-request/v1","request_id":"getting-started","intents":["audit-repository"]}' |
+  Set-Content request.json
+releasebench request.json
+```
+
+```text
+{"authority_state":"candidate-inactive","closed_actions":["remote-project-creation-and-first-push","host-visibility-metadata-topics-avatar-writes","host-public-api-and-network-verification","local-tag-creation-and-outward-tag-push","host-release-creation-or-backfill","package-registry-name-availability-reads","package-publication","remote-image-reachability-checks"],"considered_leaves":["releasebench-audit-repository"],"decision":"selected","leaf_id":"releasebench-audit-repository","outward_actions_authorized":false,"outward_actions_executed":false,"reason_code":"ONE_DIRECT_INTENT","receipt_sha256":"c6bf6d7d150da84b8f5870e3aac9bba4504700e088dfdd37c0a609b34c4d5b35","receipt_version":"releasebench.route-receipt/v1","request_id":"getting-started","router_id":"releasebench-route","visibility_state":"private-prepublic"}
+```
+
+The `"decision":"selected"` and `"leaf_id":"releasebench-audit-repository"` fields confirm the router
+is installed and routing. The detailed demos below explain the receipt in full.
+
 ## The 30-second demo
 
 At the center of ReleaseBench is a small deterministic router. You hand it a typed JSON request
