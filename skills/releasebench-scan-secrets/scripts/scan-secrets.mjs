@@ -56,7 +56,7 @@ if (!existsSync(giPath)) {
 // --- (3) hardcoded secrets in tracked text files ---
 const SKIP_EXT = /\.(png|jpe?g|gif|webp|ico|pdf|zip|gz|tgz|tar|jar|exe|dll|so|dylib|woff2?|ttf|eot|mp[34]|mov|lock)$/i;
 const SKIP_PATH = /(^|\/)(node_modules|\.git|dist|build|vendor|coverage)\/|(^|\/)(package-lock\.json|pnpm-lock\.yaml|npm-shrinkwrap\.json)$/;
-const placeholder = /^(your[a-z0-9_-]*|example|sample|changeme|placeholder|dummy|test|none|null|true|false|xxx+|<.*>|\$\{?[a-z0-9_]+\}?|\*+|\.+)$/i;
+const placeholder = /^(your[a-z0-9_-]*|example|sample|changeme|placeholder|dummy|test|none|null|true|false|xxx+|<.*>|\$\{?[a-z0-9_]+\}?|\*+|\.+|\u2026\d+\+\s*chars\u2026|\.\.\.\d+\+\s*chars\.\.\.)$/i;
 const PATTERNS = [
   { re: /-----BEGIN (?:[A-Z0-9 ]+ )?PRIVATE KEY-----/, sev: 'CRITICAL', what: 'private key block' },
   { re: /\bAKIA[0-9A-Z]{16}\b/, sev: 'CRITICAL', what: 'AWS access key id' },

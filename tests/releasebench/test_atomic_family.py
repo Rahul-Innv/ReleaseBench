@@ -21,6 +21,7 @@ FAMILY_PATH = ROOT / "skills" / "releasebench-atomic-family.json"
 CASES_PATH = Path(__file__).with_name("atomic-routing-cases.json")
 ROUTER_PATH = ROOT / "src" / "releasebench" / "router.py"
 AUDIT_PATH = ROOT / "skills" / "releasebench-audit-repository" / "scripts" / "audit-repo.mjs"
+SECRET_SCAN_PATH = ROOT / "skills" / "releasebench-scan-secrets" / "scripts" / "scan-secrets.mjs"
 EXCLUDED_TREE_PARTS = {".git", "dist", "build", "releasebench.egg-info"}
 
 EXPECTED_SKILLS = (
@@ -504,6 +505,42 @@ class AtomicFamilyTests(unittest.TestCase):
                 self.assertNotIn("[RECOMMENDED] issue templates", output)
                 self.assertNotIn("[RECOMMENDED] PR/MR template", output)
                 self.assertNotIn("[RECOMMENDED] CI", output)
+
+    def test_secret_scanner_self_scan_is_clean_without_hiding_real_assignments(self) -> None:
+        self_scan = subprocess.run(
+            ["node", str(SECRET_SCAN_PATH), str(ROOT)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(0, self_scan.returncode, self_scan.stderr.decode("utf-8"))
+        self.assertIn("No secret-hygiene issues found", self_scan.stdout.decode("utf-8"))
+
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = Path(temporary)
+            subprocess.run(["git", "init", "-q", str(fixture)], check=True)
+            (fixture / ".gitignore").write_text(".env*\n*.pem\n*.key\n", encoding="utf-8")
+            ellipsis = chr(0x2026)
+            documented = "api" + '_key = "' + ellipsis + "8+ chars" + ellipsis + '"\n'
+            real_value = "alpha" + "BETA" + "42"
+            real_assignment = "api" + '_key = "' + real_value + '"\n'
+            (fixture / "documented.md").write_text(documented, encoding="utf-8")
+            (fixture / "unsafe.txt").write_text(real_assignment, encoding="utf-8")
+            subprocess.run(
+                ["git", "-C", str(fixture), "add", ".gitignore", "documented.md", "unsafe.txt"],
+                check=True,
+            )
+            scanned = subprocess.run(
+                ["node", str(SECRET_SCAN_PATH), str(fixture)],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            output = scanned.stdout.decode("utf-8")
+            self.assertEqual(0, scanned.returncode, scanned.stderr.decode("utf-8"))
+            self.assertIn("1 MEDIUM", output)
+            self.assertIn("unsafe.txt:1", output)
+            self.assertNotIn("documented.md", output)
 
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")
