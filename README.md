@@ -201,12 +201,12 @@ node --test tests/releasebench/test_node_tools.mjs
 ```
 
 ```text
-releasebench-atomic-tests tests=21 failures=0 errors=0 skipped=0
+releasebench-atomic-tests tests=22 failures=0 errors=0 skipped=0
 candidate_root=.
 PASS
 ```
 
-The Node runner reports 2 tests passed, 0 failed. Those 23 checks (21 Python contracts plus 2 Node
+The Node runner reports 2 tests passed, 0 failed. Those 24 checks (22 Python contracts plus 2 Node
 tool regressions) pin down the exact set of skills, every routing decision (including every
 pairwise ambiguous request failing safely), byte-identical CLI output, and a privacy check that
 forbids machine-specific paths and secret-shaped strings throughout the product files and tests.
@@ -217,7 +217,7 @@ The repository audit recognizes both GitHub-native (`.github/...`) and GitLab-na
 (`.gitlab/...`, `.gitlab-ci.yml`) project surfaces. The Node regression suite exercises both
 layouts so a host-specific false warning cannot silently return.
 
-Status in one line: version `0.1.0`, public on GitLab and PyPI, all 23 checks passing, no release
+Status in one line: version `0.1.0`, public on GitLab and PyPI, all 24 checks passing, no release
 tag cut yet; the full ledger of what ReleaseBench deliberately does not do on its own is in
 [STATUS.md](STATUS.md).
 

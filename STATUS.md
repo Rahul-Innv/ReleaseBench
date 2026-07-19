@@ -12,7 +12,7 @@ what it deliberately does not do, and the process language its formal documents 
   (`.claude-plugin/marketplace.json`) you add by URL in Claude Code. It is not published to any
   external or central marketplace registry, and no skill is listed in a third-party skill directory.
 - Not yet done: no git tag and no GitLab Release object.
-- The deterministic suite passes: 21 Python contracts (`tests=21 failures=0 errors=0 skipped=0`)
+- The deterministic suite passes: 22 Python contracts (`tests=22 failures=0 errors=0 skipped=0`)
   plus 2 Node tool regressions.
 
 ## What ReleaseBench never does on its own

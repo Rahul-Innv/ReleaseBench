@@ -17,7 +17,10 @@
 - Kept the Python contract lane Python-only and moved Node-dependent coverage to the Node lane so
   both CI jobs remain self-contained without runtime package installation.
 
-## [0.1.0] - candidate
+## [0.1.0] - 2026-07-18
+
+PyPI records the earliest 0.1.0 distribution upload on 2026-07-18. There is no matching Git tag or
+GitLab Release, and this changelog entry does not claim either form of source provenance.
 
 ### Added
 
