@@ -6,10 +6,16 @@
 
 - Added a `--help`/`-h` fast path to the `releasebench` console entry point documenting the
   request-file interface, exit codes, and the Windows byte-order-mark pitfall.
+- Added dependency-free Node regressions for GitHub/GitLab audit parity and documented
+  secret-placeholder classification, run in the existing Node CI lane.
 
 ### Changed
 
 - Rewrote README.md for external readers and moved the detailed do-not-do ledger to STATUS.md.
+- Made repository audits host-aware, kept real secret-like assignments visible while ignoring the
+  documented length placeholders, added package project URLs, and collapsed exact receipt examples.
+- Kept the Python contract lane Python-only and moved Node-dependent coverage to the Node lane so
+  both CI jobs remain self-contained without runtime package installation.
 
 ## [0.1.0] - candidate
 

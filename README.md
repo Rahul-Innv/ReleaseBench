@@ -197,24 +197,25 @@ re-run yourself in about a minute:
 
 ```powershell
 python -B tests/releasebench/run_tests.py
+node --test tests/releasebench/test_node_tools.mjs
 ```
 
 ```text
-releasebench-atomic-tests tests=23 failures=0 errors=0 skipped=0
+releasebench-atomic-tests tests=21 failures=0 errors=0 skipped=0
 candidate_root=.
 PASS
 ```
 
-Those 23 checks pin down the exact set of skills, every routing decision (including every pairwise
-ambiguous request failing safely), byte-identical CLI output, and a privacy check that forbids
-machine-specific paths and secret-shaped strings throughout the product files and tests. GitLab CI runs the
-same suite on every push (badge above), and the PyPI package was re-installed into a fresh virtual
-environment to verify the install command while writing this README.
+The Node runner reports 2 tests passed, 0 failed. Those 23 checks (21 Python contracts plus 2 Node
+tool regressions) pin down the exact set of skills, every routing decision (including every
+pairwise ambiguous request failing safely), byte-identical CLI output, and a privacy check that
+forbids machine-specific paths and secret-shaped strings throughout the product files and tests.
+GitLab CI runs the same suite on every push (badge above), and the PyPI package was re-installed
+into a fresh virtual environment to verify the install command while writing this README.
 
-One candid limitation: the audit script checks GitHub-style paths (`.github/...`), so on this
-GitLab-hosted repository it flags three recommended gaps (issue templates, merge-request template,
-CI) that actually exist here in their GitLab form (`.gitlab/`, `.gitlab-ci.yml`). It still
-correctly reports zero missing must-haves. Host-aware detection is future work.
+The repository audit recognizes both GitHub-native (`.github/...`) and GitLab-native
+(`.gitlab/...`, `.gitlab-ci.yml`) project surfaces. The Node regression suite exercises both
+layouts so a host-specific false warning cannot silently return.
 
 Status in one line: version `0.1.0`, public on GitLab and PyPI, all 23 checks passing, no release
 tag cut yet; the full ledger of what ReleaseBench deliberately does not do on its own is in

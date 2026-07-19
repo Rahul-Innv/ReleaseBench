@@ -10,6 +10,7 @@
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
+import { isDocumentedPlaceholder } from './secret-placeholders.mjs';
 
 const repo = resolve(process.argv[2] || '.');
 const findings = [];
@@ -56,7 +57,6 @@ if (!existsSync(giPath)) {
 // --- (3) hardcoded secrets in tracked text files ---
 const SKIP_EXT = /\.(png|jpe?g|gif|webp|ico|pdf|zip|gz|tgz|tar|jar|exe|dll|so|dylib|woff2?|ttf|eot|mp[34]|mov|lock)$/i;
 const SKIP_PATH = /(^|\/)(node_modules|\.git|dist|build|vendor|coverage)\/|(^|\/)(package-lock\.json|pnpm-lock\.yaml|npm-shrinkwrap\.json)$/;
-const placeholder = /^(your[a-z0-9_-]*|example|sample|changeme|placeholder|dummy|test|none|null|true|false|xxx+|<.*>|\$\{?[a-z0-9_]+\}?|\*+|\.+|\u2026\d+\+\s*chars\u2026|\.\.\.\d+\+\s*chars\.\.\.)$/i;
 const PATTERNS = [
   { re: /-----BEGIN (?:[A-Z0-9 ]+ )?PRIVATE KEY-----/, sev: 'CRITICAL', what: 'private key block' },
   { re: /\bAKIA[0-9A-Z]{16}\b/, sev: 'CRITICAL', what: 'AWS access key id' },
@@ -84,7 +84,7 @@ for (const f of tracked) {
       const m = rows[i].match(p.re);
       if (!m) continue;
       const val = p.grp ? m[p.grp] : m[0];
-      if (p.grp && (placeholder.test(val) || /^(.)\1+$/.test(val))) continue; // skip obvious placeholders
+      if (p.grp && (isDocumentedPlaceholder(val) || /^(.)\1+$/.test(val))) continue; // skip obvious placeholders
       add(p.sev, p.what, f, i + 1, redact(val));
     }
   }

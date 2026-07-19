@@ -15,3 +15,4 @@ node-syntax:
   image: node:22-alpine
   script:
     - find skills -type f -name '*.mjs' -exec node --check '{}' \;
+    - node --test tests/releasebench/test_node_tools.mjs
