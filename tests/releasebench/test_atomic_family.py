@@ -471,6 +471,30 @@ class AtomicFamilyTests(unittest.TestCase):
             lesson_hashes,
         )
 
+    def test_readme_collapses_exact_receipts_without_changing_the_examples(self) -> None:
+        readme_lines = (ROOT / "README.md").read_text(encoding="utf-8").splitlines()
+        in_details = False
+        long_lines: list[str] = []
+        for line in readme_lines:
+            if line == "<details>":
+                self.assertFalse(in_details)
+                in_details = True
+            elif line == "</details>":
+                self.assertTrue(in_details)
+                in_details = False
+            if len(line) > 400:
+                self.assertTrue(in_details, "long README output must be collapsed by default")
+                long_lines.append(line)
+
+        self.assertFalse(in_details)
+        self.assertEqual(2, readme_lines.count("<summary>Exact one-line receipt</summary>"))
+        self.assertEqual(2, len(long_lines))
+        self.assertTrue(all('"receipt_sha256"' in line for line in long_lines))
+        expected_result = "tests=23 failures=0 errors=0 skipped=0"
+        self.assertIn(expected_result, "\n".join(readme_lines))
+        self.assertIn(expected_result, (ROOT / "STATUS.md").read_text(encoding="utf-8"))
+        self.assertNotIn("19 checks", "\n".join(readme_lines))
+
     def test_repository_audit_accepts_github_and_gitlab_native_files(self) -> None:
         for host in ("github", "gitlab"):
             with self.subTest(host=host), tempfile.TemporaryDirectory() as temporary:
