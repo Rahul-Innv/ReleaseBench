@@ -542,6 +542,15 @@ class AtomicFamilyTests(unittest.TestCase):
             self.assertIn("unsafe.txt:1", output)
             self.assertNotIn("documented.md", output)
 
+    def test_python_package_metadata_links_to_public_project(self) -> None:
+        metadata = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        for expected in (
+            'Repository = "https://gitlab.com/krahul02004/ReleaseBench"',
+            'Issues = "https://gitlab.com/krahul02004/ReleaseBench/-/work_items"',
+            'Changelog = "https://gitlab.com/krahul02004/ReleaseBench/-/blob/main/CHANGELOG.md"',
+        ):
+            self.assertIn(expected, metadata)
+
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")
         for forbidden in ("subprocess", "socket", "urllib", "requests", "http.client", "os.system"):

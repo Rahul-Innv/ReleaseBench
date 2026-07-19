@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 
-EXPECTED_TEST_COUNT = 21
+EXPECTED_TEST_COUNT = 22
 
 
 def result_contract_violations(
