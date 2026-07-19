@@ -10,6 +10,7 @@ import { isDocumentedPlaceholder } from '../../skills/releasebench-scan-secrets/
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const AUDIT = join(ROOT, 'skills', 'releasebench-audit-repository', 'scripts', 'audit-repo.mjs');
+const SCANNER = join(ROOT, 'skills', 'releasebench-scan-secrets', 'scripts', 'scan-secrets.mjs');
 
 test('repository audit accepts GitHub and GitLab native files', () => {
   for (const host of ['github', 'gitlab']) {
@@ -47,4 +48,33 @@ test('scanner distinguishes documented length placeholders from assignments', ()
   assert.equal(isDocumentedPlaceholder('\u20268+ chars\u2026'), true);
   assert.equal(isDocumentedPlaceholder('...8+ chars...'), true);
   assert.equal(isDocumentedPlaceholder('alphaBETA42'), false);
+
+  const selfScan = spawnSync(process.execPath, [SCANNER, ROOT], { encoding: 'utf8' });
+  assert.equal(selfScan.status, 0, selfScan.stderr);
+  assert.match(selfScan.stdout, /No secret-hygiene issues found/);
+
+  const fixture = mkdtempSync(join(tmpdir(), 'releasebench-scanner-'));
+  try {
+    const initialized = spawnSync('git', ['init', '-q', fixture], { encoding: 'utf8' });
+    assert.equal(initialized.status, 0, initialized.stderr);
+    writeFileSync(join(fixture, '.gitignore'), '.env*\n*.pem\n*.key\n');
+    const documented = 'api' + '_key = "' + '\u20268+ chars\u2026' + '"\n';
+    const realAssignment = 'api' + '_key = "' + 'alpha' + 'BETA' + '42' + '"\n';
+    writeFileSync(join(fixture, 'documented.md'), documented);
+    writeFileSync(join(fixture, 'unsafe.txt'), realAssignment);
+    const staged = spawnSync(
+      'git',
+      ['-C', fixture, 'add', '.gitignore', 'documented.md', 'unsafe.txt'],
+      { encoding: 'utf8' },
+    );
+    assert.equal(staged.status, 0, staged.stderr);
+
+    const scanned = spawnSync(process.execPath, [SCANNER, fixture], { encoding: 'utf8' });
+    assert.equal(scanned.status, 0, scanned.stderr);
+    assert.match(scanned.stdout, /summary: 1 MEDIUM/);
+    assert.match(scanned.stdout, /unsafe\.txt:1/);
+    assert.doesNotMatch(scanned.stdout, /documented\.md/);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
 });

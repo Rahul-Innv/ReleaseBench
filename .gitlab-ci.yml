@@ -12,7 +12,7 @@ atomic-contracts:
 
 node-syntax:
   stage: test
-  image: node:22-alpine
+  image: node:22-bookworm
   script:
     - find skills -type f -name '*.mjs' -exec node --check '{}' \;
     - node --test tests/releasebench/test_node_tools.mjs

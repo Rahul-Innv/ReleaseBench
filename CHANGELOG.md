@@ -16,6 +16,8 @@
   documented length placeholders, added package project URLs, and collapsed exact receipt examples.
 - Kept the Python contract lane Python-only and moved Node-dependent coverage to the Node lane so
   both CI jobs remain self-contained without runtime package installation.
+- Kept the scanner regression at integration depth: the Node lane scans this repository and a
+  tracked git fixture containing both an ignored documented placeholder and a reported assignment.
 
 ## [0.1.0] - 2026-07-18
 

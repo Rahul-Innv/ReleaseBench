@@ -67,7 +67,7 @@ exact staged tree from a fresh worktree.
 One caveat about CI: the GitLab CI jobs run only the offline Python suite plus Node syntax and
 functional tool regressions, and their scripts contain no network, registry, or publish command,
 but the hosted runner still pulls
-the declared floating container images (`python:3.12-alpine`, `node:22-alpine`). Hosted pipeline
+the declared floating container images (`python:3.12-alpine`, `node:22-bookworm`). Hosted pipeline
 results are therefore not claimed as offline-deterministic evidence; the suite run on your own
 checkout is the ground truth.
 
