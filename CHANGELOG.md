@@ -42,5 +42,5 @@ GitLab Release, and this changelog entry does not claim either form of source pr
 - Preserved the exact 49-case eval corpus under per-leaf case IDs.
 - Kept every remote, provider, registry, marketplace, installation, publication, public-verification,
   tag, and host action closed.
-- Prepared semantic plugin and package metadata without creating a local tag, host Release, or public
-  artifact.
+- Published the 0.1.0 Python package to PyPI without creating a matching local tag or GitLab
+  Release; package publication alone does not establish source provenance.

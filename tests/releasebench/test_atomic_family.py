@@ -503,9 +503,14 @@ class AtomicFamilyTests(unittest.TestCase):
 
     def test_published_changelog_entry_does_not_claim_missing_git_provenance(self) -> None:
         changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        compact = " ".join(changelog.split())
         self.assertIn("## [0.1.0] - 2026-07-18", changelog)
         self.assertIn("There is no matching Git tag or\nGitLab Release", changelog)
         self.assertNotIn("## [0.1.0] - candidate", changelog)
+        self.assertNotIn(
+            "without creating a local tag, host Release, or public artifact",
+            compact,
+        )
 
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")
