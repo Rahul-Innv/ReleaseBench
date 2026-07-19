@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -19,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FAMILY_PATH = ROOT / "skills" / "releasebench-atomic-family.json"
 CASES_PATH = Path(__file__).with_name("atomic-routing-cases.json")
 ROUTER_PATH = ROOT / "src" / "releasebench" / "router.py"
+AUDIT_PATH = ROOT / "skills" / "releasebench-audit-repository" / "scripts" / "audit-repo.mjs"
 EXCLUDED_TREE_PARTS = {".git", "dist", "build", "releasebench.egg-info"}
 
 EXPECTED_SKILLS = (
@@ -467,6 +469,41 @@ class AtomicFamilyTests(unittest.TestCase):
             {"1456e9a6afbb5f0832b2ccae48280d9f5e46271013898d0fc914a47b77bd68fb"},
             lesson_hashes,
         )
+
+    def test_repository_audit_accepts_github_and_gitlab_native_files(self) -> None:
+        for host in ("github", "gitlab"):
+            with self.subTest(host=host), tempfile.TemporaryDirectory() as temporary:
+                fixture = Path(temporary)
+                (fixture / "LICENSE").write_text(
+                    "MIT License\n\nCopyright (c) 2026 Example Maintainer\n",
+                    encoding="utf-8",
+                )
+                for name in (
+                    "README.md", "CONTRIBUTING.md", "SECURITY.md", "CODE_OF_CONDUCT.md",
+                    "CHANGELOG.md", ".gitignore",
+                ):
+                    (fixture / name).write_text("fixture\n", encoding="utf-8")
+                if host == "github":
+                    (fixture / ".github/ISSUE_TEMPLATE").mkdir(parents=True)
+                    (fixture / ".github/PULL_REQUEST_TEMPLATE.md").write_text("fixture\n", encoding="utf-8")
+                    (fixture / ".github/workflows").mkdir(parents=True)
+                    (fixture / ".github/workflows/ci.yml").write_text("fixture\n", encoding="utf-8")
+                else:
+                    (fixture / ".gitlab/issue_templates").mkdir(parents=True)
+                    (fixture / ".gitlab/merge_request_templates").mkdir(parents=True)
+                    (fixture / ".gitlab-ci.yml").write_text("fixture\n", encoding="utf-8")
+                completed = subprocess.run(
+                    ["node", str(AUDIT_PATH), str(fixture)],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    check=False,
+                )
+                output = completed.stdout.decode("utf-8")
+                self.assertEqual(0, completed.returncode, completed.stderr.decode("utf-8"))
+                self.assertIn("summary: 0 must-have missing, 0 recommended missing", output)
+                self.assertNotIn("[RECOMMENDED] issue templates", output)
+                self.assertNotIn("[RECOMMENDED] PR/MR template", output)
+                self.assertNotIn("[RECOMMENDED] CI", output)
 
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")
