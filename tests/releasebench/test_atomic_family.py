@@ -511,6 +511,26 @@ class AtomicFamilyTests(unittest.TestCase):
             "without creating a local tag, host Release, or public artifact",
             compact,
         )
+        release_surfaces = "\n".join(
+            (ROOT / relative).read_text(encoding="utf-8")
+            for relative in (
+                "ROADMAP.md",
+                "docs/public/OWNER-HANDOFF.md",
+                "docs/public/READINESS.md",
+                "docs/public/RELEASE-CANDIDATE.md",
+            )
+        )
+        for stale in (
+            "git tag -a v0.1.0",
+            "git push origin v0.1.0",
+            "first unshipped `0.1.0` candidate",
+            "ReleaseBench has no shipped version",
+            "existing `v0.1.0` tag",
+            "GitHub-path-specific",
+        ):
+            self.assertNotIn(stale, release_surfaces)
+        self.assertIn("strictly greater than 0.1.0", release_surfaces)
+        self.assertIn("Never create a retroactive `v0.1.0` tag or Release", release_surfaces)
 
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")

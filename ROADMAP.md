@@ -15,7 +15,8 @@ ReleaseBench is pre-1.0. This sequence is not a promise of dates or lifecycle el
 - [x] Run the focused offline product-contract suite with zero failures, zero errors, and zero skips.
 - [x] Add a local GitLab CI definition for the offline suite.
 - [x] Package the deterministic router as an installable Python module with a console entry point.
-- [x] Reconcile the first unshipped version as the local `0.1.0` candidate without creating a tag.
+- [x] Record the published 0.1.0 package without inventing a matching Git tag or GitLab Release.
+- [ ] Select and commit a version strictly greater than 0.1.0 before any future release candidate.
 - [ ] Replay the final staged tree from a fresh isolated worktree.
 - [ ] Verify no new regression against the untouched base.
 - [ ] Run provider-backed trigger evaluation only after separate provider approval.
@@ -29,4 +30,5 @@ ReleaseBench is pre-1.0. This sequence is not a promise of dates or lifecycle el
 - [ ] Confirm the canonical host project URL and private host state separately.
 - [ ] Decide and approve tag, host Release, metadata, avatar, visibility, and public verification.
 - [ ] Install or promote skills only through a separate owner lifecycle decision.
-- [ ] Publish no package or marketplace artifact without a new exact owner approval.
+- [ ] Publish no new package or marketplace artifact without a newer committed version and a new
+  exact owner approval.

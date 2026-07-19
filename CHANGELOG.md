@@ -18,6 +18,8 @@
   both CI jobs remain self-contained without runtime package installation.
 - Kept the scanner regression at integration depth: the Node lane scans this repository and a
   tracked git fixture containing both an ignored documented placeholder and a reported assignment.
+- Replaced stale 0.1.0 first-release and retro-tag instructions with a fail-closed next-version
+  handoff that requires a committed version strictly greater than the published package.
 
 ## [0.1.0] - 2026-07-18
 
