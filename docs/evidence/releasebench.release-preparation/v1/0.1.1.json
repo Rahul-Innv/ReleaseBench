@@ -1,0 +1,133 @@
+{
+  "receipt_version": "releasebench.release-preparation/v1",
+  "repository": {
+    "name": "ReleaseBench",
+    "baseline_branch": "main",
+    "baseline_commit": "5eab4faf50d9a705d44fa48e2ca61bc2e3ea15a4",
+    "baseline_clean": true,
+    "observed_local_tags": []
+  },
+  "candidate": {
+    "branch": "release/v0.1.1-prep",
+    "selected_version": "0.1.1",
+    "bump": "PATCH",
+    "release_date": "2026-07-19",
+    "self_certification": false
+  },
+  "semver_evidence": [
+    "PyPI 0.1.0 is historical registry state without a matching source tag or GitLab Release.",
+    "The audited post-0.1.0 work fixes documentation, audit and scanner behavior, CI lane separation, package metadata, and release integrity without adding a public capability or changing the routing contract."
+  ],
+  "shipped_change_audit": {
+    "unreleased_section_was_nonempty": true,
+    "audited_commits_through": "5eab4faf50d9a705d44fa48e2ca61bc2e3ea15a4",
+    "cut_heading": "0.1.1 - 2026-07-19",
+    "fresh_unreleased_is_empty": true,
+    "compare_link_to_missing_v0_1_0": false
+  },
+  "local_diff": {
+    "scope": "Prepared content before this receipt was added",
+    "sha256": "41a486def8a3722f57bcc636227c9e5493133a51b73a6a3b81affdada1c97c91",
+    "changed_paths": [
+      ".claude-plugin/marketplace.json",
+      ".claude-plugin/plugin.json",
+      "CHANGELOG.md",
+      "README.md",
+      "ROADMAP.md",
+      "STATUS.md",
+      "docs/public/CONFIGURATION.md",
+      "docs/public/OWNER-HANDOFF.md",
+      "docs/public/READINESS.md",
+      "docs/public/RELEASE-CANDIDATE.md",
+      "docs/public/VALIDATION.md",
+      "pyproject.toml",
+      "src/releasebench/__init__.py",
+      "tests/releasebench/test_atomic_family.py"
+    ]
+  },
+  "test_evidence": [
+    {
+      "command": "python -B tests/releasebench/run_tests.py",
+      "exit_code": 0,
+      "result": "22 tests, 0 failures, 0 errors, 0 skipped"
+    },
+    {
+      "command": "node --test tests/releasebench/test_node_tools.mjs",
+      "exit_code": 0,
+      "result": "2 passed, 0 failed"
+    },
+    {
+      "command": "claude.cmd plugin validate .",
+      "exit_code": 0,
+      "result": "marketplace validation passed"
+    },
+    {
+      "command": "python -m build --no-isolation",
+      "exit_code": 0,
+      "result": "releasebench-0.1.1 sdist and wheel built locally"
+    },
+    {
+      "command": "python -m twine check dist/releasebench-0.1.1.tar.gz dist/releasebench-0.1.1-py3-none-any.whl",
+      "exit_code": 0,
+      "result": "both local artifacts passed metadata checks"
+    },
+    {
+      "command": "node skills/releasebench-audit-repository/scripts/audit-repo.mjs .",
+      "exit_code": 0,
+      "result": "0 must-have missing, 0 recommended missing, 10 present"
+    },
+    {
+      "command": "node skills/releasebench-scan-secrets/scripts/scan-secrets.mjs .",
+      "exit_code": 0,
+      "result": "109 tracked files scanned after receipt emission; no secret-hygiene issues found"
+    },
+    {
+      "command": "JSON parse and bundled .mjs syntax checks",
+      "exit_code": 0,
+      "result": "16 JSON files parsed after receipt emission; 14 .mjs files passed node --check"
+    },
+    {
+      "command": "git diff --check and git fsck --strict --no-reflogs",
+      "exit_code": 0,
+      "result": "passed"
+    }
+  ],
+  "resolved_attempts": [
+    {
+      "command": "python -B tests/releasebench/run_tests.py",
+      "initial_exit_code": 1,
+      "failure": "One release-surface assertion was sensitive to Markdown line wrapping.",
+      "resolution": "Normalized whitespace in the assertion; the full 22-test suite then passed."
+    }
+  ],
+  "drafted_outward_steps": [
+    {
+      "action": "annotated-tag",
+      "instruction": "git tag -a v0.1.1 -m \"ReleaseBench 0.1.1\"",
+      "executed": false
+    },
+    {
+      "action": "tag-push",
+      "instruction": "git push origin v0.1.1",
+      "executed": false
+    },
+    {
+      "action": "host-release",
+      "instruction": "Create one GitLab Release named ReleaseBench 0.1.1 from v0.1.1 after exact-commit acceptance.",
+      "executed": false
+    }
+  ],
+  "closed_actions": [
+    "remote-project-creation-and-first-push",
+    "host-visibility-metadata-topics-avatar-writes",
+    "host-public-api-and-network-verification",
+    "local-tag-creation-and-outward-tag-push",
+    "host-release-creation-or-backfill",
+    "package-registry-name-availability-reads",
+    "package-publication",
+    "remote-image-reachability-checks"
+  ],
+  "outward_actions_authorized": false,
+  "outward_actions_executed": false,
+  "next_action": "Independent review of the exact local commit; merge, tag, GitLab Release, and package publication remain separately gated."
+}

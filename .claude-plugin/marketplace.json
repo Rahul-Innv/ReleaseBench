@@ -8,7 +8,7 @@
       "source": ".",
       "displayName": "ReleaseBench",
       "description": "Ten atomic skills that ready a private repository to go public (audit, secret scan, governance files, README, releases), each stopping at a reviewable result instead of a push or publish.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "license": "MIT",
       "category": "devops"
     }

@@ -217,9 +217,9 @@ The repository audit recognizes both GitHub-native (`.github/...`) and GitLab-na
 (`.gitlab/...`, `.gitlab-ci.yml`) project surfaces. The Node regression suite exercises both
 layouts so a host-specific false warning cannot silently return.
 
-Status in one line: version `0.1.0`, public on GitLab and PyPI, all 24 checks passing, no release
-tag cut yet; the full ledger of what ReleaseBench deliberately does not do on its own is in
-[STATUS.md](STATUS.md).
+Status in one line: source version `0.1.1` is prepared for review, PyPI still carries `0.1.0`, all
+24 checks pass, and no `v0.1.1` tag, GitLab Release, or `0.1.1` publication has occurred; the full
+ledger of what ReleaseBench deliberately does not do on its own is in [STATUS.md](STATUS.md).
 
 ## Governance
 

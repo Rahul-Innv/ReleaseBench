@@ -229,7 +229,14 @@ class AtomicFamilyTests(unittest.TestCase):
         self.assertEqual(sorted(EXPECTED_SKILLS), actual)
         plugin = read_json(ROOT / ".claude-plugin" / "plugin.json")
         self.assertEqual("releasebench", plugin["name"])
-        self.assertEqual("0.1.0", plugin["version"])
+        self.assertEqual("0.1.1", plugin["version"])
+        marketplace = read_json(ROOT / ".claude-plugin" / "marketplace.json")
+        self.assertEqual(plugin["version"], marketplace["plugins"][0]["version"])
+        self.assertIn('version = "0.1.1"', (ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertIn(
+            '__version__ = "0.1.1"',
+            (ROOT / "src" / "releasebench" / "__init__.py").read_text(encoding="utf-8"),
+        )
         self.assertEqual("Rahul Krishna", plugin["author"]["name"])
         self.assertIn("ten atomic skills", plugin["description"])
 
@@ -504,8 +511,10 @@ class AtomicFamilyTests(unittest.TestCase):
     def test_published_changelog_entry_does_not_claim_missing_git_provenance(self) -> None:
         changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         compact = " ".join(changelog.split())
+        self.assertIn("## [Unreleased]\n\n## [0.1.1] - 2026-07-19", changelog)
         self.assertIn("## [0.1.0] - 2026-07-18", changelog)
         self.assertIn("There is no matching Git tag or\nGitLab Release", changelog)
+        self.assertNotIn("compare/v0.1.0", changelog)
         self.assertNotIn("## [0.1.0] - candidate", changelog)
         self.assertNotIn(
             "without creating a local tag, host Release, or public artifact",
@@ -520,6 +529,7 @@ class AtomicFamilyTests(unittest.TestCase):
                 "docs/public/RELEASE-CANDIDATE.md",
             )
         )
+        compact_release_surfaces = " ".join(release_surfaces.split())
         for stale in (
             "git tag -a v0.1.0",
             "git push origin v0.1.0",
@@ -529,8 +539,11 @@ class AtomicFamilyTests(unittest.TestCase):
             "GitHub-path-specific",
         ):
             self.assertNotIn(stale, release_surfaces)
-        self.assertIn("strictly greater than 0.1.0", release_surfaces)
-        self.assertIn("Never create a retroactive `v0.1.0` tag or Release", release_surfaces)
+        self.assertIn("PATCH version 0.1.1 is selected", release_surfaces)
+        self.assertIn(
+            "Never create a retroactive `v0.1.0` tag or Release",
+            compact_release_surfaces,
+        )
 
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")

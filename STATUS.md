@@ -5,13 +5,15 @@ what it deliberately does not do, and the process language its formal documents 
 
 ## Where things stand
 
-- Version `0.1.0` everywhere it is declared: the plugin manifest (`.claude-plugin/plugin.json`),
-  the Python package (`pyproject.toml`), and the changelog.
-- Published so far: this repository on GitLab and the `releasebench` package on PyPI.
+- Source candidate version `0.1.1` everywhere it is declared: the plugin manifest
+  (`.claude-plugin/plugin.json`), self-hosted marketplace manifest, Python package
+  (`pyproject.toml` and `src/releasebench/__init__.py`), and changelog.
+- Published so far: this repository on GitLab and version `0.1.0` of the `releasebench` package on
+  PyPI. Version `0.1.1` has not been tagged, released, or published.
 - Distribution: the repository now ships a self-hosted plugin marketplace manifest
   (`.claude-plugin/marketplace.json`) you add by URL in Claude Code. It is not published to any
   external or central marketplace registry, and no skill is listed in a third-party skill directory.
-- Not yet done: no git tag and no GitLab Release object.
+- Not yet done: no `v0.1.1` git tag, matching GitLab Release object, or `0.1.1` package publication.
 - The deterministic suite passes: 22 Python contracts (`tests=22 failures=0 errors=0 skipped=0`)
   plus 2 Node tool regressions.
 
@@ -89,6 +91,6 @@ archives.
 - [Readiness ledger](docs/public/READINESS.md): phase-by-phase local status and what remains gated.
 - [Validation contract](docs/public/VALIDATION.md): the evidence required before acceptance.
 - [Dependency contract](docs/public/DEPENDENCIES.md): what the family owns and bundles.
-- [Release candidate](docs/public/RELEASE-CANDIDATE.md): the `0.1.0` version decision.
+- [Release candidate](docs/public/RELEASE-CANDIDATE.md): the reviewed `0.1.1` source-version decision.
 - [Owner handoff](docs/public/OWNER-HANDOFF.md): the prepared owner-only outward steps.
 - [Configuration](docs/public/CONFIGURATION.md): why there is no runtime configuration contract.
