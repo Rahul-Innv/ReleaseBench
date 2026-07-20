@@ -468,6 +468,70 @@ class AtomicFamilyTests(unittest.TestCase):
             lesson_hashes,
         )
 
+    def test_readme_collapses_exact_receipts_without_changing_the_examples(self) -> None:
+        readme_lines = (ROOT / "README.md").read_text(encoding="utf-8").splitlines()
+        in_details = False
+        long_lines: list[str] = []
+        for line in readme_lines:
+            if line == "<details>":
+                self.assertFalse(in_details)
+                in_details = True
+            elif line == "</details>":
+                self.assertTrue(in_details)
+                in_details = False
+            if len(line) > 400:
+                self.assertTrue(in_details, "long README output must be collapsed by default")
+                long_lines.append(line)
+
+        self.assertFalse(in_details)
+        self.assertEqual(2, readme_lines.count("<summary>Exact one-line receipt</summary>"))
+        self.assertEqual(2, len(long_lines))
+        self.assertTrue(all('"receipt_sha256"' in line for line in long_lines))
+        expected_result = "tests=22 failures=0 errors=0 skipped=0"
+        self.assertIn(expected_result, "\n".join(readme_lines))
+        self.assertIn(expected_result, (ROOT / "STATUS.md").read_text(encoding="utf-8"))
+        self.assertNotIn("19 checks", "\n".join(readme_lines))
+
+    def test_python_package_metadata_links_to_public_project(self) -> None:
+        metadata = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        for expected in (
+            'Repository = "https://gitlab.com/krahul02004/ReleaseBench"',
+            'Issues = "https://gitlab.com/krahul02004/ReleaseBench/-/work_items"',
+            'Changelog = "https://gitlab.com/krahul02004/ReleaseBench/-/blob/main/CHANGELOG.md"',
+        ):
+            self.assertIn(expected, metadata)
+
+    def test_published_changelog_entry_does_not_claim_missing_git_provenance(self) -> None:
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        compact = " ".join(changelog.split())
+        self.assertIn("## [0.1.0] - 2026-07-18", changelog)
+        self.assertIn("There is no matching Git tag or\nGitLab Release", changelog)
+        self.assertNotIn("## [0.1.0] - candidate", changelog)
+        self.assertNotIn(
+            "without creating a local tag, host Release, or public artifact",
+            compact,
+        )
+        release_surfaces = "\n".join(
+            (ROOT / relative).read_text(encoding="utf-8")
+            for relative in (
+                "ROADMAP.md",
+                "docs/public/OWNER-HANDOFF.md",
+                "docs/public/READINESS.md",
+                "docs/public/RELEASE-CANDIDATE.md",
+            )
+        )
+        for stale in (
+            "git tag -a v0.1.0",
+            "git push origin v0.1.0",
+            "first unshipped `0.1.0` candidate",
+            "ReleaseBench has no shipped version",
+            "existing `v0.1.0` tag",
+            "GitHub-path-specific",
+        ):
+            self.assertNotIn(stale, release_surfaces)
+        self.assertIn("strictly greater than 0.1.0", release_surfaces)
+        self.assertIn("Never create a retroactive `v0.1.0` tag or Release", release_surfaces)
+
     def test_router_has_no_network_or_process_execution_surface(self) -> None:
         source = ROUTER_PATH.read_text(encoding="utf-8")
         for forbidden in ("subprocess", "socket", "urllib", "requests", "http.client", "os.system"):

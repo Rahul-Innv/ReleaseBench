@@ -30,6 +30,11 @@ classifiers = [
   "Topic :: Software Development :: Build Tools",
 ]
 
+[project.urls]
+Repository = "https://gitlab.com/krahul02004/ReleaseBench"
+Issues = "https://gitlab.com/krahul02004/ReleaseBench/-/work_items"
+Changelog = "https://gitlab.com/krahul02004/ReleaseBench/-/blob/main/CHANGELOG.md"
+
 [project.scripts]
 releasebench = "releasebench.router:main"
 

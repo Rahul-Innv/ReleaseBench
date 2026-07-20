@@ -1,15 +1,16 @@
-# ReleaseBench 0.1.0 private release candidate
+# ReleaseBench next-release source candidate
 
-Status: local `0.1.0` private-pre-public candidate; candidate inactive; all outward actions remain
-closed.
+Status: the 0.1.0 package is already published on PyPI; current source contains Unreleased changes;
+no next release version has been selected; all new outward actions remain owner-gated.
 
 ## Version decision
 
-- No local tags were observed; ReleaseBench has no shipped version to supersede.
-- `.claude-plugin/plugin.json` and `pyproject.toml` both declare `0.1.0`.
-- `CHANGELOG.md` consolidates the initial repository, atomic-family extraction, validation, and
-  packaging work under the same unshipped `0.1.0` candidate.
-- `v0.1.0` is the proposed first tag. The tag does not exist and was not created by this lane.
+- PyPI records the earliest 0.1.0 distribution upload on 2026-07-18.
+- No matching `v0.1.0` Git tag or GitLab Release exists; do not create either retroactively.
+- `.claude-plugin/plugin.json` and `pyproject.toml` still declare 0.1.0 while the new changes remain
+  under `CHANGELOG.md`'s Unreleased section.
+- Before a future release, choose and commit a version strictly greater than 0.1.0 across every
+  version surface, then rebuild and verify from that exact commit.
 
 ## Candidate contents
 
@@ -29,12 +30,11 @@ ReleaseBench is described by `.claude-plugin/plugin.json` for plugin loading and
 as an installable Python package exposing the router module and the `releasebench` console entry
 point. Official plugin validation, the deterministic family suite, and an offline package build with
 a metadata check are the applicable local package dry runs. No plugin installation, marketplace
-action, package publication, or live promotion is part of this candidate.
+action, new package publication, or live promotion is part of this source candidate.
 
 ## Deliberately not performed
 
-No remote fetch/pull/push, remote mutation, local or remote tag, host Release, visibility or
-metadata change, host/API call, registry read, authentication, provider call, public verification,
-package publication, skill lifecycle action, archive mutation, or destructive cleanup occurred or is
-authorized by this status. Tagging, tag push, host Release, installation, host action, publication,
-and public exposure remain separate gates.
+This source candidate authorizes no merge, tag, tag push, GitLab Release, settings change, package
+publication, skill lifecycle action, or public-state mutation. A read-only audit verified existing
+GitLab and PyPI state, but that verification grants no outward authority. Future tagging, Release
+creation, publication, settings changes, and promotion remain separate owner gates.

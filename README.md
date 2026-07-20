@@ -38,9 +38,14 @@ audit and secret scripts directly, and Claude Code to use ReleaseBench as a plug
 releasebench request.json
 ```
 
+<details>
+<summary>Exact one-line receipt</summary>
+
 ```text
 {"authority_state":"candidate-inactive","closed_actions":["remote-project-creation-and-first-push","host-visibility-metadata-topics-avatar-writes","host-public-api-and-network-verification","local-tag-creation-and-outward-tag-push","host-release-creation-or-backfill","package-registry-name-availability-reads","package-publication","remote-image-reachability-checks"],"considered_leaves":["releasebench-audit-repository"],"decision":"selected","leaf_id":"releasebench-audit-repository","outward_actions_authorized":false,"outward_actions_executed":false,"reason_code":"ONE_DIRECT_INTENT","receipt_sha256":"c6bf6d7d150da84b8f5870e3aac9bba4504700e088dfdd37c0a609b34c4d5b35","receipt_version":"releasebench.route-receipt/v1","request_id":"getting-started","router_id":"releasebench-route","visibility_state":"private-prepublic"}
 ```
+
+</details>
 
 The `"decision":"selected"` and `"leaf_id":"releasebench-audit-repository"` fields confirm the router
 is installed and routing. The detailed demos below explain the receipt in full.
@@ -57,9 +62,14 @@ ambiguous. After [installing](#install) (`pip install releasebench`):
 releasebench request.json
 ```
 
+<details>
+<summary>Exact one-line receipt</summary>
+
 ```text
 {"authority_state":"candidate-inactive","closed_actions":["remote-project-creation-and-first-push","host-visibility-metadata-topics-avatar-writes","host-public-api-and-network-verification","local-tag-creation-and-outward-tag-push","host-release-creation-or-backfill","package-registry-name-availability-reads","package-publication","remote-image-reachability-checks"],"considered_leaves":["releasebench-scan-secrets"],"decision":"selected","leaf_id":"releasebench-scan-secrets","outward_actions_authorized":false,"outward_actions_executed":false,"reason_code":"ONE_DIRECT_INTENT","receipt_sha256":"bbe6cc0ae3ae305bdb5c134521fae0b8d745f6777784b54aabcc3d8bdfbd93ef","receipt_version":"releasebench.route-receipt/v1","request_id":"demo-1","router_id":"releasebench-route","visibility_state":"private-prepublic"}
 ```
+
+</details>
 
 That one-line answer is a **receipt**: a JSON record of what was decided and why. `leaf_id` is the
 one skill it chose (the router calls skills "leaves"), `reason_code` says why, `closed_actions`
@@ -187,26 +197,27 @@ re-run yourself in about a minute:
 
 ```powershell
 python -B tests/releasebench/run_tests.py
+node --test tests/releasebench/test_node_tools.mjs
 ```
 
 ```text
-releasebench-atomic-tests tests=19 failures=0 errors=0 skipped=0
+releasebench-atomic-tests tests=22 failures=0 errors=0 skipped=0
 candidate_root=.
 PASS
 ```
 
-Those 19 checks pin down the exact set of skills, every routing decision (including every pairwise
-ambiguous request failing safely), byte-identical CLI output, and a privacy check that forbids
-machine-specific paths and secret-shaped strings throughout the product files and tests. GitLab CI runs the
-same suite on every push (badge above), and the PyPI package was re-installed into a fresh virtual
-environment to verify the install command while writing this README.
+The Node runner reports 2 tests passed, 0 failed. Those 24 checks (22 Python contracts plus 2 Node
+tool regressions) pin down the exact set of skills, every routing decision (including every
+pairwise ambiguous request failing safely), byte-identical CLI output, and a privacy check that
+forbids machine-specific paths and secret-shaped strings throughout the product files and tests.
+GitLab CI runs the same suite on every push (badge above), and the PyPI package was re-installed
+into a fresh virtual environment to verify the install command while writing this README.
 
-One candid limitation: the audit script checks GitHub-style paths (`.github/...`), so on this
-GitLab-hosted repository it flags three recommended gaps (issue templates, merge-request template,
-CI) that actually exist here in their GitLab form (`.gitlab/`, `.gitlab-ci.yml`). It still
-correctly reports zero missing must-haves. Host-aware detection is future work.
+The repository audit recognizes both GitHub-native (`.github/...`) and GitLab-native
+(`.gitlab/...`, `.gitlab-ci.yml`) project surfaces. The Node regression suite exercises both
+layouts so a host-specific false warning cannot silently return.
 
-Status in one line: version `0.1.0`, public on GitLab and PyPI, all 19 checks passing, no release
+Status in one line: version `0.1.0`, public on GitLab and PyPI, all 24 checks passing, no release
 tag cut yet; the full ledger of what ReleaseBench deliberately does not do on its own is in
 [STATUS.md](STATUS.md).
 

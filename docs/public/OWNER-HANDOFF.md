@@ -15,27 +15,32 @@ Proposed topics:
 
 `claude-code`, `developer-tools`, `open-source`, `repo-readiness`, `release-automation`
 
-Owner-only steps remaining are: confirm the canonical host identity and private settings; push the
-accepted commit and later tag if desired; create a host Release object for the tag; set description,
-topics, and avatar; decide visibility; and verify the resulting public state. Credentials stay in
-the owner's authenticated CLI or browser and are never pasted into chat or committed here.
+The repository and the 0.1.0 PyPI package already exist publicly. Owner-only steps remaining for a
+future release are: merge an independently accepted candidate; choose and commit a version strictly
+greater than 0.1.0; create a tag from that exact versioned commit; create the matching GitLab
+Release; decide any settings changes; publish the matching package; and verify the resulting public
+state. Credentials stay in the owner's authenticated CLI or browser and are never pasted into chat
+or committed here. Never create a retroactive `v0.1.0` tag or Release: the published package has no
+verified source tag provenance.
 
 ## Prepared commands and UI path
 
-Do not run these until `main` equals the independently accepted candidate and a new exact approval
-authorizes the corresponding outward step.
+Do not run these until `main` equals the independently accepted candidate, every version surface
+and the changelog name a release strictly newer than 0.1.0, the complete release gate passes from
+that exact commit, and a new exact approval authorizes the corresponding outward step.
 
 ```powershell
-git push -u origin main
-git tag -a v0.1.0 -m "ReleaseBench 0.1.0 - first launch candidate"
-git push origin v0.1.0
+$releaseVersion = python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])"
+if ([version]$releaseVersion -le [version]'0.1.0') { throw 'Choose and commit a version newer than 0.1.0 before tagging.' }
+git tag -a "v$releaseVersion" -m "ReleaseBench $releaseVersion"
+git push origin "v$releaseVersion"
 ```
 
 Create the matching host Release in GitLab at **Deploy > Releases > New release**, selecting the
-existing `v0.1.0` tag. Set the description, topics, and avatar at **Settings > General > Naming,
-topics, avatar**. Change visibility only through **Settings > General > Visibility, project
-features, permissions** after the owner explicitly chooses to make the project public.
+new `v$releaseVersion` tag. Set the description, topics, and avatar at **Settings > General >
+Naming, topics, avatar**. Change any visibility or project feature only through **Settings >
+General > Visibility, project features, permissions** after explicit owner approval.
 
-After visibility changes, a separate read-only verification must check the host project API,
-Releases, latest pipeline, and README asset reachability. That public verification is deliberately
-not part of this local packet.
+After any outward action, a separate read-only verification must check the host project API,
+Release/tag binding, exact-head pipeline, README asset reachability, and PyPI version/project URLs.
+That public verification is deliberately not part of this local packet.

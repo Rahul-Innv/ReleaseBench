@@ -6,12 +6,25 @@
 
 - Added a `--help`/`-h` fast path to the `releasebench` console entry point documenting the
   request-file interface, exit codes, and the Windows byte-order-mark pitfall.
+- Added dependency-free Node regressions for GitHub/GitLab audit parity and documented
+  secret-placeholder classification, run in the existing Node CI lane.
 
 ### Changed
 
 - Rewrote README.md for external readers and moved the detailed do-not-do ledger to STATUS.md.
+- Made repository audits host-aware, kept real secret-like assignments visible while ignoring the
+  documented length placeholders, added package project URLs, and collapsed exact receipt examples.
+- Kept the Python contract lane Python-only and moved Node-dependent coverage to the Node lane so
+  both CI jobs remain self-contained without runtime package installation.
+- Kept the scanner regression at integration depth: the Node lane scans this repository and a
+  tracked git fixture containing both an ignored documented placeholder and a reported assignment.
+- Replaced stale 0.1.0 first-release and retro-tag instructions with a fail-closed next-version
+  handoff that requires a committed version strictly greater than the published package.
 
-## [0.1.0] - candidate
+## [0.1.0] - 2026-07-18
+
+PyPI records the earliest 0.1.0 distribution upload on 2026-07-18. There is no matching Git tag or
+GitLab Release, and this changelog entry does not claim either form of source provenance.
 
 ### Added
 
@@ -31,5 +44,5 @@
 - Preserved the exact 49-case eval corpus under per-leaf case IDs.
 - Kept every remote, provider, registry, marketplace, installation, publication, public-verification,
   tag, and host action closed.
-- Prepared semantic plugin and package metadata without creating a local tag, host Release, or public
-  artifact.
+- Published the 0.1.0 Python package to PyPI without creating a matching local tag or GitLab
+  Release; package publication alone does not establish source provenance.

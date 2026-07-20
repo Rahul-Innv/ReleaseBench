@@ -36,12 +36,22 @@ for (const [p, item, why] of [
   ['.gitignore', '.gitignore', 'ignore build artifacts and secret files'],
 ]) (has(p) ? present.push(item) : add('RECOMMENDED', item, `add ${item}: ${why}`));
 
-// --- .github/ ---
+// --- host-native collaboration files ---
 const wfDir = join(repo, '.github', 'workflows');
-const hasWorkflows = existsSync(wfDir) && readdirSync(wfDir).some((f) => /\.ya?ml$/.test(f));
-(has('.github/ISSUE_TEMPLATE') || has('.github/ISSUE_TEMPLATE.md')) ? present.push('issue templates') : add('RECOMMENDED', 'issue templates', 'add .github/ISSUE_TEMPLATE/');
-(has('.github/PULL_REQUEST_TEMPLATE.md') || has('.github/pull_request_template.md')) ? present.push('PR template') : add('RECOMMENDED', 'PR template', 'add .github/PULL_REQUEST_TEMPLATE.md');
-hasWorkflows ? present.push('CI workflow') : add('RECOMMENDED', 'CI', 'add a .github/workflows CI (e.g. run tests on push/PR)');
+const hasGithubWorkflows = existsSync(wfDir) && readdirSync(wfDir).some((f) => /\.ya?ml$/.test(f));
+const hasIssueTemplates = firstOf(
+  '.github/ISSUE_TEMPLATE',
+  '.github/ISSUE_TEMPLATE.md',
+  '.gitlab/issue_templates',
+);
+const hasChangeTemplate = firstOf(
+  '.github/PULL_REQUEST_TEMPLATE.md',
+  '.github/pull_request_template.md',
+  '.gitlab/merge_request_templates',
+);
+hasIssueTemplates ? present.push('issue templates') : add('RECOMMENDED', 'issue templates', 'add .github/ISSUE_TEMPLATE/ or .gitlab/issue_templates/');
+hasChangeTemplate ? present.push('PR/MR template') : add('RECOMMENDED', 'PR/MR template', 'add a GitHub pull-request or GitLab merge-request template');
+(hasGithubWorkflows || has('.gitlab-ci.yml')) ? present.push('CI workflow') : add('RECOMMENDED', 'CI', 'add a GitHub Actions or GitLab CI configuration');
 
 // --- node-specific ---
 if (has('package.json')) {
