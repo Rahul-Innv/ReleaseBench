@@ -15,23 +15,22 @@ Proposed topics:
 
 `claude-code`, `developer-tools`, `open-source`, `repo-readiness`, `release-automation`
 
-The repository and the 0.1.0 PyPI package already exist publicly. Owner-only steps remaining for a
-future release are: merge an independently accepted candidate; choose and commit a version strictly
-greater than 0.1.0; create a tag from that exact versioned commit; create the matching GitLab
-Release; decide any settings changes; publish the matching package; and verify the resulting public
-state. Credentials stay in the owner's authenticated CLI or browser and are never pasted into chat
-or committed here. Never create a retroactive `v0.1.0` tag or Release: the published package has no
-verified source tag provenance.
+The repository and the 0.1.0 PyPI package already exist publicly. The prepared next source version is
+`0.1.1`. Owner-only steps remaining are: merge an independently accepted candidate; create `v0.1.1`
+from that exact versioned commit; create the matching GitLab Release; decide any settings changes;
+publish the matching package; and verify the resulting public state. Credentials stay in the
+owner's authenticated CLI or browser and are never pasted into chat or committed here. Never create
+a retroactive `v0.1.0` tag or Release: the published package has no verified source tag provenance.
 
 ## Prepared commands and UI path
 
-Do not run these until `main` equals the independently accepted candidate, every version surface
-and the changelog name a release strictly newer than 0.1.0, the complete release gate passes from
-that exact commit, and a new exact approval authorizes the corresponding outward step.
+Do not run these until `main` equals the independently accepted candidate, every version surface and
+the changelog name `0.1.1`, the complete release gate passes from that exact commit, and a new exact
+approval authorizes the corresponding outward step.
 
 ```powershell
 $releaseVersion = python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])"
-if ([version]$releaseVersion -le [version]'0.1.0') { throw 'Choose and commit a version newer than 0.1.0 before tagging.' }
+if ($releaseVersion -ne '0.1.1') { throw 'The accepted source is not the prepared 0.1.1 candidate.' }
 git tag -a "v$releaseVersion" -m "ReleaseBench $releaseVersion"
 git push origin "v$releaseVersion"
 ```

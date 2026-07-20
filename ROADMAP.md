@@ -16,7 +16,7 @@ ReleaseBench is pre-1.0. This sequence is not a promise of dates or lifecycle el
 - [x] Add a local GitLab CI definition for the offline suite.
 - [x] Package the deterministic router as an installable Python module with a console entry point.
 - [x] Record the published 0.1.0 package without inventing a matching Git tag or GitLab Release.
-- [ ] Select and commit a version strictly greater than 0.1.0 before any future release candidate.
+- [x] Select patch version 0.1.1 and reconcile its local source-release surfaces.
 - [ ] Replay the final staged tree from a fresh isolated worktree.
 - [ ] Verify no new regression against the untouched base.
 - [ ] Run provider-backed trigger evaluation only after separate provider approval.

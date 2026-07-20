@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-19
+
 ### Added
 
 - Added a `--help`/`-h` fast path to the `releasebench` console entry point documenting the
@@ -20,6 +22,9 @@
   tracked git fixture containing both an ignored documented placeholder and a reported assignment.
 - Replaced stale 0.1.0 first-release and retro-tag instructions with a fail-closed next-version
   handoff that requires a committed version strictly greater than the published package.
+
+This patch release has no compare link because the published `0.1.0` package has no matching source
+tag. The historical package must not be retro-tagged to manufacture provenance.
 
 ## [0.1.0] - 2026-07-18
 

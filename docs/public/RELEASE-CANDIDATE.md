@@ -1,16 +1,18 @@
-# ReleaseBench next-release source candidate
+# ReleaseBench 0.1.1 source candidate
 
-Status: the 0.1.0 package is already published on PyPI; current source contains Unreleased changes;
-no next release version has been selected; all new outward actions remain owner-gated.
+Status: local source preparation for patch version `0.1.1`; PyPI still carries `0.1.0`; no tag,
+GitLab Release, or `0.1.1` package publication has occurred; all outward actions remain owner-gated.
 
 ## Version decision
 
 - PyPI records the earliest 0.1.0 distribution upload on 2026-07-18.
 - No matching `v0.1.0` Git tag or GitLab Release exists; do not create either retroactively.
-- `.claude-plugin/plugin.json` and `pyproject.toml` still declare 0.1.0 while the new changes remain
-  under `CHANGELOG.md`'s Unreleased section.
-- Before a future release, choose and commit a version strictly greater than 0.1.0 across every
-  version surface, then rebuild and verify from that exact commit.
+- `0.1.1` is a PATCH because it packages documentation, audit/scanner, CI-lane, metadata, and
+  release-integrity fixes without changing the routing contract or adding a public capability.
+- `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `pyproject.toml`, and
+  `src/releasebench/__init__.py` all declare `0.1.1`.
+- `CHANGELOG.md` cuts the audited Unreleased work as `0.1.1` on 2026-07-19 and starts a fresh empty
+  Unreleased section. It intentionally has no compare link against nonexistent `v0.1.0`.
 
 ## Candidate contents
 
@@ -35,6 +37,7 @@ action, new package publication, or live promotion is part of this source candid
 ## Deliberately not performed
 
 This source candidate authorizes no merge, tag, tag push, GitLab Release, settings change, package
-publication, skill lifecycle action, or public-state mutation. A read-only audit verified existing
-GitLab and PyPI state, but that verification grants no outward authority. Future tagging, Release
-creation, publication, settings changes, and promotion remain separate owner gates.
+publication, skill lifecycle action, or public-state mutation. After independent acceptance and a
+separate owner approval, the proposed release identity is annotated tag `v0.1.1` plus one matching
+GitLab Release. Package publication remains a distinct gate. Never create a retroactive `v0.1.0`
+tag or Release.

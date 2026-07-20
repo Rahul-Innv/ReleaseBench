@@ -1,6 +1,6 @@
 # Offline validation and qualification
 
-This contract defines the evidence required for the ReleaseBench 0.1.0 atomic-family candidate. It
+This contract defines the evidence required for the ReleaseBench 0.1.1 atomic-family candidate. It
 authorizes no outward action and is not an independent acceptance receipt.
 
 ## Untouched-base comparison

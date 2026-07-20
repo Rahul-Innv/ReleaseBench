@@ -1,7 +1,7 @@
 # Configuration
 
-ReleaseBench 0.1.0 has no runtime configuration file, environment-variable contract, network daemon, or
-credential store. The plugin is loaded from its directory and its skills are invoked by name.
+ReleaseBench 0.1.1 has no runtime configuration file, environment-variable contract, network daemon,
+or credential store. The plugin is loaded from its directory and its skills are invoked by name.
 
 Credentials are never ReleaseBench configuration. Any later host or registry action belongs to the
 owner's authenticated tool or browser session, happens only after a separate approval, and must not

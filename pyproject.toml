@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "releasebench"
-version = "0.1.0"
+version = "0.1.1"
 description = "Deterministic dispatch-only router for the ReleaseBench atomic release-readiness skill family."
 readme = "README.md"
 requires-python = ">=3.10"
