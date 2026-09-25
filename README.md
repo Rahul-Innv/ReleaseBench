@@ -217,9 +217,9 @@ The repository audit recognizes both GitHub-native (`.github/...`) and GitLab-na
 (`.gitlab/...`, `.gitlab-ci.yml`) project surfaces. The Node regression suite exercises both
 layouts so a host-specific false warning cannot silently return.
 
-Status in one line: source version `0.1.1` is prepared for review, PyPI still carries `0.1.0`, all
-24 checks pass, and no `v0.1.1` tag, GitLab Release, or `0.1.1` publication has occurred; the full
-ledger of what ReleaseBench deliberately does not do on its own is in [STATUS.md](STATUS.md).
+Status in one line: source version `0.1.1` is tagged and released on GitLab, PyPI
+carries `0.1.1`, and the plugin skills remain inactive candidates. The documented suite has
+22 Python checks and 2 Node checks; the full lifecycle ledger is in [STATUS.md](STATUS.md).
 
 ## Governance
 
@@ -228,4 +228,8 @@ ReleaseBench is available under the [MIT License](LICENSE). Contributions follow
 [private security reporting guidance](SECURITY.md). Planned work is recorded in
 [ROADMAP.md](ROADMAP.md).
 
-Built by Rahul Krishna.
+## Contributors
+
+- [Rahul Krishna](https://github.com/Rahul-Innv) - creator and contributor.
+- Claude Code - AI development assistance.
+- Codex - AI development assistance.

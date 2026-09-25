@@ -8,12 +8,11 @@ what it deliberately does not do, and the process language its formal documents 
 - Source candidate version `0.1.1` everywhere it is declared: the plugin manifest
   (`.claude-plugin/plugin.json`), self-hosted marketplace manifest, Python package
   (`pyproject.toml` and `src/releasebench/__init__.py`), and changelog.
-- Published so far: this repository on GitLab and version `0.1.0` of the `releasebench` package on
-  PyPI. Version `0.1.1` has not been tagged, released, or published.
+- Published so far: this repository on GitLab, a `v0.1.1` git tag and GitLab Release,
+  and version `0.1.1` of the `releasebench` package on PyPI.
 - Distribution: the repository now ships a self-hosted plugin marketplace manifest
   (`.claude-plugin/marketplace.json`) you add by URL in Claude Code. It is not published to any
   external or central marketplace registry, and no skill is listed in a third-party skill directory.
-- Not yet done: no `v0.1.1` git tag, matching GitLab Release object, or `0.1.1` package publication.
 - The deterministic suite passes: 22 Python contracts (`tests=22 failures=0 errors=0 skipped=0`)
   plus 2 Node tool regressions.
 
