@@ -1,11 +1,11 @@
 # ReleaseBench atomic-family readiness status
 
-Target: `SOURCE_READY_STOP_BEFORE_NEXT_RELEASE_ACTIONS`
+Historical target: `SOURCE_READY_STOP_BEFORE_NEXT_RELEASE_ACTIONS`
 
-This is the current source status. ReleaseBench `0.1.1` is prepared locally while PyPI `0.1.0`
-remains the only published package and has no matching Git tag or GitLab Release. The candidate does
-not self-certify, and this document grants no provider, lifecycle, marketplace, settings, release,
-publication, or public-state authority.
+Current release state, verified 2026-09-25: the `v0.1.1` tag and GitLab Release
+exist, and PyPI publishes `releasebench` `0.1.1`. The table below records the
+pre-release candidate review. It is retained as history, not as a current
+publication checklist or evidence of skill activation.
 
 | Phase | Current local candidate | Still gated |
 |---|---|---|

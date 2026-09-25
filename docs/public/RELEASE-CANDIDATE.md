@@ -1,7 +1,9 @@
-# ReleaseBench 0.1.1 source candidate
+# ReleaseBench 0.1.1 historical source candidate
 
-Status: local source preparation for patch version `0.1.1`; PyPI still carries `0.1.0`; no tag,
-GitLab Release, or `0.1.1` package publication has occurred; all outward actions remain owner-gated.
+Current release state, verified 2026-09-25: the `v0.1.1` tag and GitLab Release
+exist, and PyPI publishes `releasebench` `0.1.1`. The sections below preserve
+the pre-release preparation record; they do not describe current publication
+state or authorize another release.
 
 ## Version decision
 

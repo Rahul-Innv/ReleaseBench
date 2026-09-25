@@ -5,7 +5,7 @@ what it deliberately does not do, and the process language its formal documents 
 
 ## Where things stand
 
-- Source candidate version `0.1.1` everywhere it is declared: the plugin manifest
+- Released version `0.1.1` everywhere it is declared: the plugin manifest
   (`.claude-plugin/plugin.json`), self-hosted marketplace manifest, Python package
   (`pyproject.toml` and `src/releasebench/__init__.py`), and changelog.
 - Published so far: this repository on GitLab, a `v0.1.1` git tag and GitLab Release,
